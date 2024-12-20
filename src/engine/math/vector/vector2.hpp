@@ -22,32 +22,32 @@ public:
 
     //! Constructors
     constexpr Vector2();
-    constexpr Vector2(T val);
-    constexpr Vector2(T val1, T val2);
+    constexpr Vector2(T value);
+    constexpr Vector2(T x, T y);
 
     //! Operators
-    constexpr T& operator[](std::size_t index);
+    constexpr T&       operator[](std::size_t index);
     constexpr const T& operator[](std::size_t index) const;
-    constexpr Vector2 operator+(const Vector2 other) const;
+    constexpr Vector2  operator+(const Vector2 other) const;
     constexpr Vector2& operator+=(const Vector2 other);
-    constexpr Vector2 operator-(const Vector2 other) const;
+    constexpr Vector2  operator-(const Vector2 other) const;
     constexpr Vector2& operator-=(const Vector2 other);
-    constexpr Vector2 operator*(const T value) const;
+    constexpr Vector2  operator*(const T value) const;
     constexpr Vector2& operator*=(const T value);
-    constexpr Vector2 operator*(const Vector2 other) const;
+    constexpr Vector2  operator*(const Vector2 other) const;
     constexpr Vector2& operator*=(const Vector2 other);
-    constexpr Vector2 operator/(const T value) const;
+    constexpr Vector2  operator/(const T value) const;
     constexpr Vector2& operator/=(const T value);
-    constexpr Vector2 operator/(const Vector2 other) const;
-    constexpr Vector2 operator/=(const Vector2 other);
-    constexpr bool operator==(const Vector2 other) const;
-    constexpr bool operator!=(const Vector2 other) const;
+    constexpr Vector2  operator/(const Vector2 other) const;
+    constexpr Vector2  operator/=(const Vector2 other);
+    constexpr bool     operator==(const Vector2 other) const;
+    constexpr bool     operator!=(const Vector2 other) const;
 
     //! Operations
-    constexpr T Dot(const Vector2 other) const;
-    constexpr T Length() const;
-    constexpr T LengthSquared() const;
-    constexpr T Cross2D(const Vector2 other) const;
+    constexpr T       Dot(const Vector2 other) const;
+    constexpr T       Length() const;
+    constexpr T       LengthSquared() const;
+    constexpr T       Cross2D(const Vector2 other) const;
     constexpr Vector2 GetNormalized() const;
     constexpr Vector2 GetSafeNormalized() const;
     constexpr Vector2 GetReflected(const Vector2 normal) const;

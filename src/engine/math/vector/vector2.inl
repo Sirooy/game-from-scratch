@@ -7,9 +7,9 @@ namespace Math
 template<typename T>
 constexpr Vector2<T>::Vector2() : X{}, Y{} { }
 template<typename T>
-constexpr Vector2<T>::Vector2(T val) : X{val}, Y{val} { }
+constexpr Vector2<T>::Vector2(T value) : X{value}, Y{value} { }
 template<typename T>
-constexpr Vector2<T>::Vector2(T val1, T val2) : X{val1}, Y{val2} { }
+constexpr Vector2<T>::Vector2(T x, T y) : X{x}, Y{y} { }
 
 //! Operators
 template<typename T>
@@ -171,9 +171,7 @@ constexpr Vector2<T> Vector2<T>::GetSafeNormalized() const
     T l = std::sqrt(X * X + Y * Y);
 
     if(l != 0)
-    {
         return Vector2(X / l, Y / l);
-    }
 
     return Vector2(X, Y);
 }
@@ -181,10 +179,10 @@ constexpr Vector2<T> Vector2<T>::GetSafeNormalized() const
 template<typename T>
 constexpr Vector2<T> Vector2<T>::GetReflected(const Vector2<T> normal) const
 {
-    T dot = Dot(normal) * 2;
+    T proj = Dot(normal) * 2;
 
-    return Vector2(X - normal.X * dot, 
-                   Y - normal.Y * dot);
+    return Vector2(X - normal.X * proj, 
+                   Y - normal.Y * proj);
 }
 
 template<typename T>
