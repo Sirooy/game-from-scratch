@@ -35,7 +35,7 @@ public:
     constexpr Vector3  operator/(const T value) const;
     constexpr Vector3& operator/=(const T value);
     constexpr Vector3  operator/(const Vector3& other) const;
-    constexpr Vector3  operator/=(const Vector3& other);
+    constexpr Vector3& operator/=(const Vector3& other);
     constexpr bool     operator==(const Vector3& other) const;
     constexpr bool     operator!=(const Vector3& other) const;
 
@@ -52,6 +52,7 @@ public:
     T X, Y, Z;
 };
 
+//Instantiate common templates
 template class Vector3<float>;
 template class Vector3<double>;
 

@@ -111,7 +111,7 @@ constexpr Vector2<T> Vector2<T>::operator/(const Vector2<T> other) const
 }
 
 template<typename T>
-constexpr Vector2<T> Vector2<T>::operator/=(const Vector2<T> other)
+constexpr Vector2<T>& Vector2<T>::operator/=(const Vector2<T> other)
 {
     X /= other.X;
     Y /= other.Y;
