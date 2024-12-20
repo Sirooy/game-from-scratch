@@ -40,6 +40,8 @@ public:
     constexpr Vector2& operator/=(const T value);
     constexpr Vector2 operator/(const Vector2 other) const;
     constexpr Vector2 operator/=(const Vector2 other);
+    constexpr bool operator==(const Vector2 other) const;
+    constexpr bool operator!=(const Vector2 other) const;
 
     //! Operations
     constexpr T Dot(const Vector2 other) const;

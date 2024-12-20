@@ -118,6 +118,20 @@ constexpr Vector2<T> Vector2<T>::operator/=(const Vector2<T> other)
     return *this;
 }
 
+template<typename T>
+constexpr bool Vector2<T>::operator==(const Vector2<T> other) const
+{
+    return X == other.X && 
+           Y == other.Y;
+}
+
+template<typename T>
+constexpr bool Vector2<T>::operator!=(const Vector2<T> other) const
+{
+    return X != other.X || 
+           Y != other.Y;
+}
+
 //! Operations
 template<typename T>
 constexpr T Vector2<T>::Dot(const Vector2<T> other) const 
