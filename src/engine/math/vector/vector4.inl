@@ -6,8 +6,10 @@ namespace Math
 //! Constructors
 template<typename T>
 constexpr Vector4<T>::Vector4() : X{}, Y{}, Z{}, W{} { }
+
 template<typename T>
 constexpr Vector4<T>::Vector4(T value) : X{value}, Y{value}, Z{value}, W{value} { }
+
 template<typename T>
 constexpr Vector4<T>::Vector4(T x, T y, T z, T w) : X{x}, Y{y}, Z{z}, W{w} { }
 

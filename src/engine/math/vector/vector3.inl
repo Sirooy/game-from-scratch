@@ -6,8 +6,10 @@ namespace Math
 //! Constructors
 template<typename T>
 constexpr Vector3<T>::Vector3() : X{}, Y{}, Z{} { }
+
 template<typename T>
 constexpr Vector3<T>::Vector3(T value) : X{value}, Y{value}, Z{value} { }
+
 template<typename T>
 constexpr Vector3<T>::Vector3(T x, T y, T z) : X{x}, Y{y}, Z{z} { }
 

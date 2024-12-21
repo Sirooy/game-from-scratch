@@ -6,8 +6,10 @@ namespace Math
 //! Constructors
 template<typename T>
 constexpr Vector2<T>::Vector2() : X{}, Y{} { }
+
 template<typename T>
 constexpr Vector2<T>::Vector2(T value) : X{value}, Y{value} { }
+
 template<typename T>
 constexpr Vector2<T>::Vector2(T x, T y) : X{x}, Y{y} { }
 

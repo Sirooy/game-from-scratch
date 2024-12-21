@@ -1,6 +1,7 @@
 #pragma once
 #include <concepts>
 #include <cstdint>
+#include <cstddef>
 
 namespace Math
 {
@@ -17,8 +18,8 @@ struct Vector2
 {
 public:
     using Type = T;
-    static constexpr int32_t Size        = 2;
-    static constexpr int32_t SizeInBytes = sizeof(T) * Size;
+    constexpr static int32_t Size        = 2;
+    constexpr static int32_t SizeInBytes = sizeof(T) * Size;
 
     //! Constructors
     constexpr Vector2();
