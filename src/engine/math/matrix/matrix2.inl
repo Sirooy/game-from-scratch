@@ -3,6 +3,7 @@
 namespace Math
 {
 
+//! Constructors
 template<typename T>
 constexpr Matrix2<T>::Matrix2() : 
     Arr{1, 0, 0, 1} { }
@@ -20,7 +21,6 @@ constexpr Matrix2<T>::Matrix2(T m11, T m21, T m12, T m22) :
     Arr{m11, m21, m12, m22} { }
 
 //! Operators
-
 template<typename T>
 constexpr T* Matrix2<T>::operator[](std::size_t index)
 {
@@ -89,20 +89,22 @@ constexpr Matrix2<T> Matrix2<T>::operator*(const Matrix2<T>& other) const
 {
     return Matrix2(
         Arr[0] * other.Arr[0] + Arr[2] * other.Arr[1],
-        Arr[1] * other.Arr[0] + Arr[3] * other.Arr[1], //1
+        Arr[1] * other.Arr[0] + Arr[3] * other.Arr[1],
         Arr[0] * other.Arr[2] + Arr[2] * other.Arr[3],
-        Arr[1] * other.Arr[2] + Arr[3] * other.Arr[3]); //3
+        Arr[1] * other.Arr[2] + Arr[3] * other.Arr[3]);
 }
 
 template<typename T>
 constexpr Matrix2<T>& Matrix2<T>::operator*=(const Matrix2<T>& other)
 {
+    //Row 1
     T val1 = Arr[0] * other.Arr[0] + Arr[2] * other.Arr[1];
     T val2 = Arr[0] * other.Arr[2] + Arr[2] * other.Arr[3];
 
     Arr[0] = val1;
     Arr[2] = val2;
 
+    //Row 2
     val1 = Arr[1] * other.Arr[0] + Arr[3] * other.Arr[1];
     val2 = Arr[1] * other.Arr[2] + Arr[3] * other.Arr[3];
 

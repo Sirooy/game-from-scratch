@@ -12,7 +12,7 @@ struct Matrix2
 {
 public:
     using Type = T;
-    constexpr static int32_t Size        = 4;
+    constexpr static int32_t Size        = 2 * 2;
     constexpr static int32_t SizeInBytes = sizeof(T) * Size;
     constexpr static int32_t NumColumns  = 2;
 

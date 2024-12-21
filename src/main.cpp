@@ -3,6 +3,7 @@
 #include <engine/math/vector/vector3.hpp>
 #include <engine/math/vector/vector4.hpp>
 #include <engine/math/matrix/Matrix2.hpp>
+#include <engine/math/matrix/Matrix3.hpp>
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, Math::Vector2<T> v)
