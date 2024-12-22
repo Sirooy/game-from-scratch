@@ -4,6 +4,7 @@
 #include <engine/math/vector/vector4.hpp>
 #include <engine/math/matrix/Matrix2.hpp>
 #include <engine/math/matrix/Matrix3.hpp>
+#include <engine/math/matrix/Matrix4.hpp>
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, Math::Vector2<T> v)
@@ -32,6 +33,8 @@ int main()
     Math::Vec4 v2{1, 2, 3, 4};
 
     Math::Mat2 m = Math::Mat2::CreateRotation(0.1f).GetScaled({2.0f});
+    Math::Mat3 m1 = Math::Mat3::CreateRotationZ(0.1f).GetScaled({2.0f});
+    Math::Mat4 m2 = Math::Mat4::CreateRotationZ(0.1f).GetScaled({2.0f});
     std::cout << m[0][0] << ' ' << m[0][1] << '\n' << m[1][0] << ' ' << m[1][1] << '\n';
     
     std::cout << v1 + v2 << '\n';

@@ -50,8 +50,8 @@ private:
     T Arr[Size];
 };
 
-template class Matrix2<float>;
-template class Matrix2<double>;
+template struct Matrix2<float>;
+template struct Matrix2<double>;
 
 using Mat2  = Matrix2<float>;
 using Mat2d = Matrix2<double>;

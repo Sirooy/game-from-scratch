@@ -60,8 +60,8 @@ private:
     T Arr[Size];
 };
 
-template class Matrix3<float>;
-template class Matrix3<double>;
+template struct Matrix3<float>;
+template struct Matrix3<double>;
 
 using Mat3  = Matrix3<float>;
 using Mat3d = Matrix3<double>;

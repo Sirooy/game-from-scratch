@@ -50,6 +50,7 @@ constexpr Vector3<T>& Vector3<T>::operator+=(const Vector3<T>& other)
     X += other.X;
     Y += other.Y;
     Z += other.Z;
+
     return *this;
 }
 
@@ -65,6 +66,7 @@ constexpr Vector3<T>& Vector3<T>::operator-=(const Vector3<T>& other)
     X -= other.X;
     Y -= other.Y;
     Z -= other.Z;
+
     return *this;
 }
 
@@ -80,6 +82,7 @@ constexpr Vector3<T>& Vector3<T>::operator*=(const T value)
     X *= value;
     Y *= value;
     Z *= value;
+
     return *this;
 }
 
@@ -95,6 +98,7 @@ constexpr Vector3<T>& Vector3<T>::operator*=(const Vector3<T>& other)
     X *= other.X;
     Y *= other.Y;
     Z *= other.Z;
+
     return *this;
 }
 
@@ -110,6 +114,7 @@ constexpr Vector3<T>& Vector3<T>::operator/=(const T value)
     X /= value;
     Y /= value;
     Z /= value;
+
     return *this;
 }
 
@@ -125,6 +130,7 @@ constexpr Vector3<T>& Vector3<T>::operator/=(const Vector3<T>& other)
     X /= other.X;
     Y /= other.Y;
     Z /= other.Z;
+    
     return *this;
 }
 

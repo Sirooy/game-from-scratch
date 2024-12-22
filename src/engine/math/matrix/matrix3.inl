@@ -44,9 +44,11 @@ constexpr const T* Matrix3<T>::operator[](std::size_t index) const
 template<typename T>
 constexpr Matrix3<T> Matrix3<T>::operator+(const Matrix3<T>& other) const
 {
-    return Matrix3(Arr[0] + other.Arr[0], Arr[1] + other.Arr[1], Arr[2] + other.Arr[2],
-                   Arr[3] + other.Arr[3], Arr[4] + other.Arr[4], Arr[5] + other.Arr[5],
-                   Arr[6] + other.Arr[6], Arr[7] + other.Arr[7], Arr[8] + other.Arr[8]);
+    return Matrix3(
+        Arr[0] + other.Arr[0], Arr[1] + other.Arr[1], Arr[2] + other.Arr[2],
+        Arr[3] + other.Arr[3], Arr[4] + other.Arr[4], Arr[5] + other.Arr[5],
+        Arr[6] + other.Arr[6], Arr[7] + other.Arr[7], Arr[8] + other.Arr[8]
+    );
 }
 
 template<typename T>
@@ -61,16 +63,18 @@ constexpr Matrix3<T>& Matrix3<T>::operator+=(const Matrix3<T>& other)
     Arr[6] += other.Arr[6];
     Arr[7] += other.Arr[7];
     Arr[8] += other.Arr[8];
-
+    
     return *this;
 }
 
 template<typename T>
 constexpr Matrix3<T> Matrix3<T>::operator-(const Matrix3<T>& other) const
 {
-    return Matrix3(Arr[0] - other.Arr[0], Arr[1] - other.Arr[1], Arr[2] - other.Arr[2],
-                   Arr[3] - other.Arr[3], Arr[4] - other.Arr[4], Arr[5] - other.Arr[5],
-                   Arr[6] - other.Arr[6], Arr[7] - other.Arr[7], Arr[8] - other.Arr[8]);
+    return Matrix3(
+        Arr[0] - other.Arr[0], Arr[1] - other.Arr[1], Arr[2] - other.Arr[2],
+        Arr[3] - other.Arr[3], Arr[4] - other.Arr[4], Arr[5] - other.Arr[5],
+        Arr[6] - other.Arr[6], Arr[7] - other.Arr[7], Arr[8] - other.Arr[8]
+    );
 }
 
 template<typename T>
@@ -85,15 +89,18 @@ constexpr Matrix3<T>& Matrix3<T>::operator-=(const Matrix3<T>& other)
     Arr[6] -= other.Arr[6];
     Arr[7] -= other.Arr[7];
     Arr[8] -= other.Arr[8];
+
     return *this;
 }
 
 template<typename T>
 constexpr Matrix3<T> Matrix3<T>::operator*(const T value) const
 {
-    return Matrix3(Arr[0] * value, Arr[1] * value, Arr[2] * value,
-                   Arr[3] * value, Arr[4] * value, Arr[5] * value,
-                   Arr[6] * value, Arr[7] * value, Arr[8] * value);
+    return Matrix3(
+        Arr[0] * value, Arr[1] * value, Arr[2] * value,
+        Arr[3] * value, Arr[4] * value, Arr[5] * value,
+        Arr[6] * value, Arr[7] * value, Arr[8] * value
+    );
 }
 
 template<typename T>
@@ -108,6 +115,7 @@ constexpr Matrix3<T>& Matrix3<T>::operator*=(const T value)
     Arr[6] *= value;
     Arr[7] *= value;
     Arr[8] *= value;
+
     return *this;
 }
 
@@ -123,7 +131,8 @@ constexpr Matrix3<T> Matrix3<T>::operator*(const Matrix3<T>& other) const
         Arr[2] * other.Arr[3] + Arr[5] * other.Arr[4] + Arr[8] * other.Arr[5],
         Arr[0] * other.Arr[6] + Arr[3] * other.Arr[7] + Arr[6] * other.Arr[8],
         Arr[1] * other.Arr[6] + Arr[4] * other.Arr[7] + Arr[7] * other.Arr[8],
-        Arr[2] * other.Arr[6] + Arr[5] * other.Arr[7] + Arr[8] * other.Arr[8]);
+        Arr[2] * other.Arr[6] + Arr[5] * other.Arr[7] + Arr[8] * other.Arr[8]
+    );
 }
 
 template<typename T>
@@ -162,9 +171,11 @@ constexpr Matrix3<T>& Matrix3<T>::operator*=(const Matrix3<T>& other)
 template<typename T>
 constexpr Matrix3<T> Matrix3<T>::operator/(const T value) const
 {
-    return Matrix3(Arr[0] / value, Arr[1] / value, Arr[2] / value, 
-                   Arr[3] / value, Arr[4] / value, Arr[5] / value,
-                   Arr[6] / value, Arr[7] / value, Arr[8] / value);
+    return Matrix3(
+        Arr[0] / value, Arr[1] / value, Arr[2] / value, 
+        Arr[3] / value, Arr[4] / value, Arr[5] / value,
+        Arr[6] / value, Arr[7] / value, Arr[8] / value
+    );
 }
 
 template<typename T>
@@ -179,6 +190,7 @@ constexpr Matrix3<T>& Matrix3<T>::operator/=(const T value)
     Arr[6] /= value;
     Arr[7] /= value;
     Arr[8] /= value;
+
     return *this;
 }
 
@@ -265,7 +277,8 @@ constexpr Matrix3<T> Matrix3<T>::GetTranspose() const
         Arr[7],
         Arr[2],
         Arr[5],
-        Arr[8]);
+        Arr[8]
+    );
 }
 
 template<typename T>
@@ -379,7 +392,8 @@ constexpr Matrix3<T> Matrix3<T>::CreateScale(const Vector3<T>& scale)
     return Matrix3(
         scale.X, 0, 0,
         0, scale.Y, 0,
-        0, 0, scale.Z);
+        0, 0, scale.Z
+    );
 }
 
 template<typename T>
@@ -388,7 +402,8 @@ constexpr Matrix3<T> Matrix3<T>::CreateScale2D(const Vector2<T> scale)
     return Matrix3(
         scale.X, 0, 0,
         0, scale.Y, 0,
-        0, 0, 1.0);
+        0, 0, 1.0
+    );
 }
 
 template<typename T>

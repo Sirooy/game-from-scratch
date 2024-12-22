@@ -53,6 +53,7 @@ constexpr Vector4<T>& Vector4<T>::operator+=(const Vector4<T>& other)
     Y += other.Y;
     Z += other.Z;
     W += other.W;
+
     return *this;
 }
 
@@ -69,6 +70,7 @@ constexpr Vector4<T>& Vector4<T>::operator-=(const Vector4<T>& other)
     Y -= other.Y;
     Z -= other.Z;
     W -= other.W;
+
     return *this;
 }
 
@@ -85,6 +87,7 @@ constexpr Vector4<T>& Vector4<T>::operator*=(const T value)
     Y *= value;
     Z *= value;
     W *= value;
+
     return *this;
 }
 
@@ -101,6 +104,7 @@ constexpr Vector4<T>& Vector4<T>::operator*=(const Vector4<T>& other)
     Y *= other.Y;
     Z *= other.Z;
     W *= other.W;
+
     return *this;
 }
 
@@ -117,6 +121,7 @@ constexpr Vector4<T>& Vector4<T>::operator/=(const T value)
     Y /= value;
     Z /= value;
     W /= value;
+
     return *this;
 }
 
@@ -133,6 +138,7 @@ constexpr Vector4<T>& Vector4<T>::operator/=(const Vector4<T>& other)
     Y /= other.Y;
     Z /= other.Z;
     W /= other.W;
+    
     return *this;
 }
 
