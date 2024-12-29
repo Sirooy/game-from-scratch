@@ -7,7 +7,7 @@
 
 APP_NAME     := game
 CC_FLAGS     := -Wall -pedantic -std=c++20
-C_FLAGS      := $(CC_FLAGS)
+C_FLAGS      := -Wall -pedantic -std=gnu17
 CC_COMPILER  := g++
 C_COMPILER   := gcc
 MKDIR	     := mkdir -p
