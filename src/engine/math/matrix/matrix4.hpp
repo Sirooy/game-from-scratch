@@ -2,12 +2,13 @@
 #include <cstdint>
 #include <cstddef>
 #include "../vector/vector3.hpp"
-#include "../quat/quaternion.hpp"
+#include "../vector/vector4.hpp"
+//#include "../quat/quaternion.hpp"
 
 namespace Math
 {
 
-//Column based 3x3 matrix
+//Column based 4x4 matrix
 template<typename T>
 struct Matrix4
 {
@@ -35,6 +36,7 @@ public:
     constexpr Matrix4& operator*=(const T value);
     constexpr Matrix4  operator*(const Matrix4& other) const;
     constexpr Matrix4& operator*=(const Matrix4& other);
+    constexpr Vector4<T> operator*(const Vector4<T>& v) const;
     constexpr Matrix4  operator/(const T value) const;
     constexpr Matrix4& operator/=(const T value);
     constexpr bool     operator==(const Matrix4& other) const;
@@ -54,8 +56,8 @@ public:
     constexpr static Matrix4 CreateRotationY(T radians);
     constexpr static Matrix4 CreateRotationZ(T radians);
     constexpr static Matrix4 CreateTranslation(const Vector3<T>& v);
-    constexpr static Matrix4 CreateTransform(const Vector3<T>& scale, 
-        const Quaternion<T>& rotation, const Vector3<T>& translation);
+    //constexpr static Matrix4 CreateTransform(const Vector3<T>& scale, 
+    //    const Quaternion<T>& rotation, const Vector3<T>& translation);
 private:
     T Arr[Size];
 };

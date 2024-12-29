@@ -5,6 +5,8 @@
 #include <engine/math/matrix/Matrix2.hpp>
 #include <engine/math/matrix/Matrix3.hpp>
 #include <engine/math/matrix/Matrix4.hpp>
+#include <engine/math/quat/quaternion.hpp>
+#include <numbers>
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, Math::Vector2<T> v)
@@ -29,6 +31,15 @@ std::ostream& operator<<(std::ostream& os, Math::Vector4<T> v)
 
 int main()
 {
+    Math::Quat q = Math::Quat::FromAxis({1.0f, 0.0f, 0.0f}, 
+        90.0f * (std::numbers::pi_v<float> / 180.0f));
+    Math::Vec3 vec3 = { 0.707107f, 0.707107f, 0.0f };
+    Math::Vec4 vec4 = { 0.707107f, 0.707107f, 0.0f, 1.0f }; 
+    Math::Vec3 res1 = q * vec3;
+    Math::Vec4 res2 = q.ToMatrix4() * vec4; 
+    std::cout << "Result: " << res1 << ", Length: " << res1.Length() << '\n';
+    std::cout << "Result: " << res2 << ", Length: " << res2.Length() << '\n';
+
     Math::Vec4 v1{1, 2, 3, 4};
     Math::Vec4 v2{1, 2, 3, 4};
 

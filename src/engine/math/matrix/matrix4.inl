@@ -149,6 +149,18 @@ constexpr Matrix4<T>& Matrix4<T>::operator*=(const T value)
 }
 
 template<typename T>
+constexpr Vector4<T> Matrix4<T>::operator*(const Vector4<T>& v) const
+{
+    return Vector4(
+        Arr[0] * v.X + Arr[4] * v.Y + Arr[8]  * v.Z + Arr[12] * v.W,
+        Arr[1] * v.X + Arr[5] * v.Y + Arr[9]  * v.Z + Arr[13] * v.W,
+        Arr[2] * v.X + Arr[6] * v.Y + Arr[10] * v.Z + Arr[14] * v.W,
+        Arr[3] * v.X + Arr[7] * v.Y + Arr[11] * v.Z + Arr[15] * v.W
+    );
+}
+
+
+template<typename T>
 constexpr Matrix4<T> Matrix4<T>::operator*(const Matrix4<T>& other) const
 {
     return Matrix4(
@@ -573,6 +585,7 @@ constexpr Matrix4<T> Matrix4<T>::CreateTranslation(const Vector3<T>& translation
     );
 }
 
+/*
 template<typename T>
 constexpr Matrix4<T> Matrix4<T>::CreateTransform(const Vector3<T>& scale, 
     const Quaternion<T>& rotation, const Vector3<T>& translation)
@@ -580,5 +593,6 @@ constexpr Matrix4<T> Matrix4<T>::CreateTransform(const Vector3<T>& scale,
     throw "Unimplemented method Matrix4::CreateTransform";
     return Matrix4();
 }
+*/
 
 } //namespace Math
