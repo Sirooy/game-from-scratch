@@ -2,27 +2,6 @@
 #-L + path for other libraries
 
 ################
-#### CONFIG ####
-################
-
-APP_NAME     := game
-CC_FLAGS     := -Wall -pedantic -std=c++20
-C_FLAGS      := -Wall -pedantic -std=gnu17
-CC_COMPILER  := g++
-C_COMPILER   := gcc
-MKDIR	     := mkdir -p
-SRC          := src
-OBJ          := obj
-LIBS         := 
-INCLUDE_DIRS := -I$(SRC)
-
-ifdef DEBUG
-	CC_FLAGS += -g
-else
-	CC_FLAGS += -O3
-endif
-
-################
 #### MACROS ####
 ################
 
@@ -49,46 +28,96 @@ define C2H
 $(patsubst %.c,%.h,$(patsubst %.cpp,%.hpp,$(1)))
 endef
 
+################
+#### CONFIG ####
+################
+
+PLATFORM     := windows
+BUILD_CONFIG := debug
+APP_NAME     := game
+C_COMPILER   := gcc
+CC_COMPILER  := g++
+C_FLAGS      := -Wall -pedantic -std=gnu17 -DGLFW_INCLUDE_NONE
+CC_FLAGS     := -Wall -pedantic -std=c++20 -DGLFW_INCLUDE_NONE
+MKDIR	     := mkdir -p
+SRC          := src
+OBJ          := obj
+LIB 		 := lib
+DEPENDENCIES := dependencies
+INCLUDE_DIRS := -I$(SRC) -I$(DEPENDENCIES)/include
+SYSTEM_LIBS  :=
+LINKER_FLAGS :=
+#Sets the libraries directory depending on the platform and build config
+LIBS_DIR     := $(DEPENDENCIES)/$(LIB)/$(PLATFORM)/$(BUILD_CONFIG)
+
+#Windows platform config
+ifeq ("$(PLATFORM)","windows")
+    #Add 
+	C_FLAGS     += -DPLATFORM_WINDOWS
+	CC_FLAGS    += -DPLATFORM_WINDOWS
+	SYSTEM_LIBS := -lGdi32 -static
+    #Build config (debug/release)
+	ifeq ("$(BUILD_CONFIG)","debug")
+        #Add debug information and the DEBUG define
+		C_FLAGS      += -g3 -DDEBUG
+		CC_FLAGS     += -g3 -DDEBUG
+	else ifeq ("$(BUILD_CONFIG)","release")
+        #Add optimizations
+		C_FLAGS  	 += -O3
+		CC_FLAGS 	 += -O3
+        #Removes the console when executing the .exe
+		LINKER_FLAGS := -mwindows
+	else
+        $(error Invalid build config "$(BUILD_CONFIG)")
+	endif
+else
+    $(error Invalid platform "$(PLATFORM)")
+endif
+
 ###############
 #### RULES ####
 ###############
 
+#Finds all the static libraries (.a and .lib files) for the current build config and platform,
+#removes the path from them and adds the -l: flag for the linker
+STATIC_LIBS  := $(shell find $(LIBS_DIR)* -type f \( -iname \*.a -o -iname \*.lib \) -exec basename {} \; | sed "s/^/-l:/g")
 #Finds all the source code directories
-SRCSUBDIRS   := $(shell find $(SRC) -type d)
+SRC_SUBDIRS  := $(shell find $(SRC) -type d)
 #Replace the $(SRC) part of the source directorie's name with $(OBJ) 
-OBJSUBDIRS  := $(patsubst $(SRC)%,$(OBJ)%,$(SRCSUBDIRS))
+OBJ_SUBDIRS  := $(patsubst $(SRC)%,$(OBJ)%,$(SRC_SUBDIRS))
 #Finds all the .cpp files
-CPPFILES    := $(shell find $(SRC) -type f -iname *.cpp)
+CPP_FILES    := $(shell find $(SRC) -type f -iname *.cpp)
 #Finds all the .c files
-CFILES      := $(shell find $(SRC) -type f -iname *.c)
+C_FILES      := $(shell find $(SRC) -type f -iname *.c)
 #Converts the .c and .cpp files into .o files
-OBJFILES 	:= $(foreach FILE,$(CPPFILES) $(CFILES),$(call C2O,$(FILE)))
+OBJ_FILES 	 := $(foreach FILE,$(CPP_FILES) $(C_FILES),$(call C2O,$(FILE)))
 
 .PHONY: info
 
-#Compiles the application
-$(APP_NAME) : $(OBJSUBDIRS) $(OBJFILES)
-	$(CC_COMPILER) -o $(APP_NAME) $(OBJFILES) $(LIBS)
+#Compiles and links the application
+$(APP_NAME) : $(OBJ_SUBDIRS) $(OBJ_FILES)
+	$(CC_COMPILER) -o $(APP_NAME) $(OBJ_FILES) -L$(LIBS_DIR) $(STATIC_LIBS) $(SYSTEM_LIBS) $(LINKER_FLAGS)
 
 #Generate a rule to compile every .cpp file
-$(foreach FILE,$(CPPFILES),$(eval $(call COMPILE,$(CC_COMPILER),$(call C2O,$(FILE)),$(FILE),$(call C2H,$(FILE)),$(CC_FLAGS) $(INCLUDE_DIRS))))
+$(foreach FILE,$(CPP_FILES),$(eval $(call COMPILE,$(CC_COMPILER),$(call C2O,$(FILE)),$(FILE),$(call C2H,$(FILE)),$(CC_FLAGS) $(INCLUDE_DIRS))))
 
 #Generate a rule to compile every .c file
-$(foreach FILE,$(CFILES),$(eval $(call COMPILE,$(C_COMPILER),$(call C2O,$(FILE)),$(FILE),$(call C2H,$(FILE)),$(C_FLAGS) $(INCLUDE_DIRS))))
+$(foreach FILE,$(C_FILES),$(eval $(call COMPILE,$(C_COMPILER),$(call C2O,$(FILE)),$(FILE),$(call C2H,$(FILE)),$(C_FLAGS) $(INCLUDE_DIRS))))
 
 #Create all obj subdirectories
-$(OBJSUBDIRS) : 
-	$(MKDIR) $(OBJSUBDIRS)
+$(OBJ_SUBDIRS) : 
+	$(MKDIR) $(OBJ_SUBDIRS)
 
 info :
-	$(info $(SRCSUBDIRS))
-	$(info $(OBJSUBDIRS))
-	$(info $(CPPFILES))
-	$(info $(CPPOBJFILES))
-	$(info $(CFILES))
-	$(info $(COBJFILES))
+	$(info $(SRC_SUBDIRS))
+	$(info $(OBJ_SUBDIRS))
+	$(info $(CPP_FILES))
+	$(info $(CPPOBJ_FILES))
+	$(info $(C_FILES))
+	$(info $(COBJ_FILES))
+	$(info $(STATIC_LIBS))
 
-#Remove the obj directory
+#Remove the obj directory and .exe
 clean :
 	rm -rf $(OBJ)
 	rm -rf $(APP_NAME)

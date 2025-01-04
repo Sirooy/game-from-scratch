@@ -6,6 +6,7 @@
 #include <engine/math/matrix/Matrix3.hpp>
 #include <engine/math/matrix/Matrix4.hpp>
 #include <engine/math/quat/quaternion.hpp>
+#include <glfw/glfw3.h>
 #include <numbers>
 
 template<typename T>
@@ -31,34 +32,29 @@ std::ostream& operator<<(std::ostream& os, Math::Vector4<T> v)
 
 int main()
 {
-    Math::Quat q = Math::Quat::FromAxis({1.0f, 0.0f, 0.0f}, 
-        90.0f * (std::numbers::pi_v<float> / 180.0f));
-    Math::Vec3 vec3 = { 0.707107f, 0.707107f, 0.0f };
-    Math::Vec4 vec4 = { 0.707107f, 0.707107f, 0.0f, 1.0f }; 
-    Math::Vec3 res1 = q * vec3;
-    Math::Vec4 res2 = q.ToMatrix4() * vec4; 
-    std::cout << "Result: " << res1 << ", Length: " << res1.Length() << '\n';
-    std::cout << "Result: " << res2 << ", Length: " << res2.Length() << '\n';
+    if(!glfwInit())
+    {
+        throw std::runtime_error("Could not init glfw");
+    }
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    Math::Vec4 v1{1, 2, 3, 4};
-    Math::Vec4 v2{1, 2, 3, 4};
+    GLFWwindow* window = glfwCreateWindow(640, 480, "Window title", nullptr, nullptr);
+    if (!window)
+    {
+        throw std::runtime_error("Could not create the window");
+    }
+    //glfwMakeContextCurrent(window);
+    //gladLoadGL(glfwGetProcAddress);
 
-    Math::Mat2 m = Math::Mat2::CreateRotation(0.1f).GetScaled({2.0f});
-    Math::Mat3 m1 = Math::Mat3::CreateRotationZ(0.1f).GetScaled({2.0f});
-    Math::Mat4 m2 = Math::Mat4::CreateRotationZ(0.1f).GetScaled({2.0f});
-    std::cout << m[0][0] << ' ' << m[0][1] << '\n' << m[1][0] << ' ' << m[1][1] << '\n';
-    
-    std::cout << v1 + v2 << '\n';
-    std::cout << v1 - v2 << '\n';
-    std::cout << v1 * v2 << '\n';
-    std::cout << v1 / v2 << '\n';
-    std::cout << v1 + 1 << '\n';
-    std::cout << v1 - 1 << '\n';
-    std::cout << v1 * 2 << '\n';
-    std::cout << v1 / 2 << '\n';
-    std::cout << v1[0] << ' ' << v1[1] << ' ' << v1[2] << ' ' << v1[3] << '\n';
-    std::cout << v1.Length() << '\n';
-    std::cout << v1.LengthSquared() << '\n';
-    std::cout << v1.GetNormalized().Length() << '\n';
-    std::cout << v1.Dot(v2) << '\n';
+    while (!glfwWindowShouldClose(window))
+    {
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
 }
