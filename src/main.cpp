@@ -6,6 +6,7 @@
 #include <engine/math/matrix/Matrix3.hpp>
 #include <engine/math/matrix/Matrix4.hpp>
 #include <engine/math/quat/quaternion.hpp>
+#include <engine/input/input.hpp>
 #include <glfw/glfw3.h>
 #include <numbers>
 
@@ -45,13 +46,14 @@ int main()
     {
         throw std::runtime_error("Could not create the window");
     }
-    //glfwMakeContextCurrent(window);
-    //gladLoadGL(glfwGetProcAddress);
+    glfwSwapInterval(1);
+    Input::Init(window);
 
     while (!glfwWindowShouldClose(window))
     {
-
+        
         glfwSwapBuffers(window);
+        Input::Update();
         glfwPollEvents();
     }
 
