@@ -1,2 +1,0 @@
-- [ ] Optimize vector and matrix division operations with multiplications
-- [ ] Add angle function into vector2,3 and quaternion classes
