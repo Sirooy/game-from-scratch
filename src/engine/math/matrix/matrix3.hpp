@@ -1,10 +1,10 @@
 #pragma once
 #include <cstdint>
 #include <cstddef>
-#include "../vector/vector2.hpp"
-#include "../vector/vector3.hpp"
+#include "../vector/Vector2.hpp"
+#include "../vector/Vector3.hpp"
 
-namespace Math
+namespace math
 {
 
 //Column based 3x3 matrix
@@ -55,9 +55,11 @@ public:
     constexpr static Matrix3 CreateRotationY(T radians);
     constexpr static Matrix3 CreateRotationZ(T radians);
     constexpr static Matrix3 CreateTranslation2D(const Vector2<T> v);
-    constexpr static Matrix3 CreateTransform2D(const Vector2<T> scale, T radians, const Vector2<T> translation);
-private:
-    T Arr[Size];
+    constexpr static Matrix3 CreateTransform2D(const Vector2<T> scale, T radians, 
+        const Vector2<T> translation);
+
+public:
+    T arr[Size];
 };
 
 template struct Matrix3<float>;
@@ -66,6 +68,6 @@ template struct Matrix3<double>;
 using Mat3  = Matrix3<float>;
 using Mat3d = Matrix3<double>;
 
-} //namespace Math
+} //namespace math
 
-#include "matrix3.inl"
+#include "Matrix3.inl"

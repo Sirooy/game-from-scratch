@@ -1,6 +1,6 @@
-#include "input.hpp"
+#include "Input.hpp"
 
-namespace Input
+namespace input
 {
 
 void Init(GLFWwindow* glfwWindow)
@@ -17,4 +17,4 @@ void Update()
     Gamepad::Update();
 }
 
-} //namespace Input
+} //namespace input

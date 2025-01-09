@@ -3,7 +3,7 @@
 #include <glfw/glfw3.h>
 #include "../math/vector/vector2.hpp"
 
-namespace Input
+namespace input
 {
 
 enum class GamepadButton
@@ -50,6 +50,8 @@ enum class GamepadAxis
 class Gamepad
 {
 public:
+    inline static constexpr int32_t MaxGamepads = GLFW_JOYSTICK_LAST + 1;
+
     Gamepad() = delete;
 
     static void Init()
@@ -57,13 +59,13 @@ public:
         //Count the number of gamepads connected on initialization in case
         //the gamepads were already connected before starting the application
         GLFWgamepadstate state;
-        for(int32_t i = 0;i < MAX_GAMEPADS_CONNECTED; ++i)
+        for(int32_t i = 0;i < MaxGamepads; ++i)
         {
             if(glfwGetGamepadState(GLFW_JOYSTICK_1 + i, &state) == GLFW_TRUE)
             {
-                NumConnected++;
-                Data[i].IsConnected = true;
-                LastConnectedId  = GLFW_JOYSTICK_1 + i;
+                m_NumConnected++;
+                m_Data[i].isConnected = true;
+                m_LastConnectedId  = GLFW_JOYSTICK_1 + i;
             }
         }
 
@@ -78,95 +80,95 @@ public:
 
     static void Update()
     {
-        std::memcpy(LastData, Data, sizeof(GamepadData) * MAX_GAMEPADS_CONNECTED);
+        std::memcpy(m_LastData, m_Data, sizeof(GamepadData) * MaxGamepads);
 
-        for(int32_t i = 0;i < LastConnectedId + 1; ++i)
+        for(int32_t i = 0;i < m_LastConnectedId + 1; ++i)
         {
-            glfwGetGamepadState(GLFW_JOYSTICK_1 + i, &Data[i].State);
+            glfwGetGamepadState(GLFW_JOYSTICK_1 + i, &m_Data[i].state);
         }
     }
 
     static bool IsButtonDown(int32_t index, GamepadButton button)
     {
-        return Data[index].State.buttons[static_cast<int>(button)] == 1;
+        return m_Data[index].state.buttons[static_cast<int>(button)] == 1;
     }
 
     static bool IsButtonUp(int32_t index, GamepadButton button)
     {
-        return Data[index].State.buttons[static_cast<int>(button)] == 0;
+        return m_Data[index].state.buttons[static_cast<int>(button)] == 0;
     }
 
     static bool IsButtonPressed(int32_t index, GamepadButton button)
     {
-        return LastData[index].State.buttons[static_cast<int>(button)] == 0 && 
-            Data[index].State.buttons[static_cast<int>(button)] == 1;
+        return m_LastData[index].state.buttons[static_cast<int>(button)] == 0 && 
+            m_Data[index].state.buttons[static_cast<int>(button)] == 1;
     }
 
     static bool IsButtonReleased(int32_t index, GamepadButton button)
     {
-        return LastData[index].State.buttons[static_cast<int>(button)] == 1 && 
-            Data[index].State.buttons[static_cast<int>(button)] == 0;
+        return m_LastData[index].state.buttons[static_cast<int>(button)] == 1 && 
+            m_Data[index].state.buttons[static_cast<int>(button)] == 0;
     }
 
-    static Math::Vec2 GetAxis(int32_t index, GamepadAxis axis)
+    static math::Vec2 GetAxis(int32_t index, GamepadAxis axis)
     {
         
-        return Math::Vec2(Data[index].State.axes[static_cast<int>(axis) + 0],
-                          Data[index].State.axes[static_cast<int>(axis) + 1]);
+        return math::Vec2(m_Data[index].state.axes[static_cast<int>(axis) + 0],
+                          m_Data[index].state.axes[static_cast<int>(axis) + 1]);
     }
 
     static float GetTrigger(int32_t index, GamepadTrigger trigger)
     {
-        return Data[index].State.axes[static_cast<int>(trigger)];
+        return m_Data[index].state.axes[static_cast<int>(trigger)];
     }
 
     static bool IsConnected(int32_t index)
     {
-        return Data[index].IsConnected;
+        return m_Data[index].isConnected;
     }
 
     static bool HasBeenConnected(int32_t index)
     {
-        return !LastData[index].IsConnected && 
-            Data[index].IsConnected;
+        return !m_LastData[index].isConnected && 
+            m_Data[index].isConnected;
     }
 
     static bool HasBeenDisconnected(int32_t index) 
     { 
-        return LastData[index].IsConnected && 
-            !Data[index].IsConnected;
+        return m_LastData[index].isConnected && 
+            !m_Data[index].isConnected;
     }
 
-    static int32_t GetNumConnected() { return NumConnected; }
+    static int32_t GetNumConnected() { return m_NumConnected; }
 
 private:
     static void OnConnectGamepad(int32_t id)
     {
-        NumConnected = std::min(NumConnected + 1, 
-            MAX_GAMEPADS_CONNECTED);
-        Data[id].IsConnected = true;
+        m_NumConnected = std::min(m_NumConnected + 1, 
+            MaxGamepads);
+        m_Data[id].isConnected = true;
 
-        if(id > LastConnectedId)
-            LastConnectedId = id;
+        if(id > m_LastConnectedId)
+            m_LastConnectedId = id;
     }
 
     static void OnDisconnectGamepad(int32_t id)
     {
-        NumConnected = std::max(NumConnected - 1, 0);
-        Data[id].IsConnected = false;
-        Data[id].State       = { };
+        m_NumConnected = std::max(m_NumConnected - 1, 0);
+        m_Data[id].isConnected = false;
+        m_Data[id].state       = { };
         
         //Reset the last connected gamepad index when there are no gamepads connected
-        if(NumConnected == 0)
-            LastConnectedId = -1;
-        else if(LastConnectedId == id)
+        if(m_NumConnected == 0)
+            m_LastConnectedId = -1;
+        else if(m_LastConnectedId == id)
         {
             //If the gamepad disconnected had the last id, 
             //search for the new connected gamepad with the last id
-            int32_t index = LastConnectedId - 1;
-            while(index > -1 && !Data[index].IsConnected)
+            int32_t index = m_LastConnectedId - 1;
+            while(index > -1 && !m_Data[index].isConnected)
                 index--;
-            LastConnectedId = index;
+            m_LastConnectedId = index;
         }
     }
     
@@ -175,16 +177,14 @@ private:
     {
         GamepadData() { } //Empty constructor needs to be declared due to a compiler bug
 
-        bool IsConnected       { false };
-        GLFWgamepadstate State { };
+        bool isConnected       { false };
+        GLFWgamepadstate state { };
     };
 
-    inline static constexpr int32_t MAX_GAMEPADS_CONNECTED = GLFW_JOYSTICK_LAST + 1;
-
-    inline static GamepadData Data[MAX_GAMEPADS_CONNECTED]     { };
-    inline static GamepadData LastData[MAX_GAMEPADS_CONNECTED] { };
-    inline static int32_t NumConnected                         { 0 };
-    inline static int32_t LastConnectedId                      {-1 };
+    inline static GamepadData m_Data[MaxGamepads]     { };
+    inline static GamepadData m_LastData[MaxGamepads] { };
+    inline static int32_t m_NumConnected              { 0 };
+    inline static int32_t m_LastConnectedId           {-1 };
 };
 
-} //namespace Input
+} //namespace input

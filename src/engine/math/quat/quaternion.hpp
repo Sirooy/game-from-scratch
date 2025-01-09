@@ -1,10 +1,10 @@
 #pragma once
 #include <cstdint>
 #include <cstddef>
-#include "../vector/vector3.hpp"
-#include "../matrix/matrix4.hpp"
+#include "../vector/Vector3.hpp"
+#include "../matrix/Matrix4.hpp"
 
-namespace Math
+namespace math
 {
 
 template<typename T>
@@ -46,8 +46,9 @@ public:
     constexpr Quaternion        GetInverse() const;
     constexpr Matrix4<T>        ToMatrix4() const;
     constexpr static Quaternion FromAxis(const Vector3<T>& axis, T radians);
+
 public:
-    T X, Y, Z, W;
+    T x, y, z, w;
 };
 
 template struct Quaternion<float>;
@@ -56,6 +57,6 @@ template struct Quaternion<double>;
 using Quat  = Quaternion<float>;
 using Quatd = Quaternion<double>;
 
-} //namespace Math
+} //namespace math
 
-#include "quaternion.inl"
+#include "Quaternion.inl"

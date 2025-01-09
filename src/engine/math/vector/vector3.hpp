@@ -2,12 +2,8 @@
 #include <cstdint>
 #include <cstddef>
 
-namespace Math
+namespace math
 {
-
-//!########## ########## ##########
-//!##########  Vector 3  ##########
-//!########## ########## ##########
 
 template<typename T>
 struct Vector3
@@ -50,7 +46,7 @@ public:
     constexpr Vector3 GetReflected(const Vector3& normal) const;
 
 public:
-    T X, Y, Z;
+    T x, y, z;
 };
 
 //Instantiate common templates
@@ -60,6 +56,6 @@ template class Vector3<double>;
 using Vec3  = Vector3<float>;
 using Vec3d = Vector3<double>;
 
-} // namespace Math
+} // namespace math
 
-#include "vector3.inl"
+#include "Vector3.inl"

@@ -4,12 +4,12 @@
 #include "mouse.hpp"
 #include "gamepad.hpp"
 
-namespace Input
+namespace input
 {
 
 void Init(GLFWwindow* glfwWindow);
 void Update();
 
-} //namespace Input
+} //namespace input
 
-namespace Inp = Input;
+namespace inp = input;

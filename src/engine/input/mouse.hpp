@@ -3,7 +3,7 @@
 #include <glfw/glfw3.h>
 #include "../math/vector/vector2.hpp"
 
-namespace Input
+namespace input
 {
 
 enum class MouseButton
@@ -32,23 +32,23 @@ public:
 
     static void Init(GLFWwindow* window)
     {
-        GlfwWindow = window;
+        m_GlfwWindow = window;
 
         glfwSetMouseButtonCallback(window, [](GLFWwindow* glfwWindow, int button, int action, int mods)
         {
-            ButtonStates[button] = static_cast<bool>(action);
+            m_ButtonStates[button] = static_cast<bool>(action);
         });
 
         glfwSetCursorPosCallback(window, [](GLFWwindow* glfwWindow, double xPos, double yPos)
         {
-            Position = Math::Vec2(
+            m_Position = math::Vec2(
                 static_cast<float>(xPos),
                 static_cast<float>(yPos));
         });
 
         glfwSetScrollCallback(window, [](GLFWwindow* glfwWindow, double xOffset, double yOffset)
         {
-            Scroll += Math::Vec2(
+            m_Scroll += math::Vec2(
                 static_cast<float>(xOffset),
                 static_cast<float>(yOffset));
         });
@@ -56,91 +56,91 @@ public:
 
     static void Update()
     {
-        LastPosition = Position;
-        std::memcpy(LastButtonStates, ButtonStates, BUTTON_COUNT);
+        m_LastPosition = m_Position;
+        std::memcpy(m_LastButtonStates, m_ButtonStates, m_ButtonCount);
     }
 
     static bool IsButtonDown(MouseButton button)
     {
-        return ButtonStates[static_cast<int>(button)];
+        return m_ButtonStates[static_cast<int>(button)];
     }
 
     static bool IsButtonUp(MouseButton button)
     {
-        return !ButtonStates[static_cast<int>(button)];
+        return !m_ButtonStates[static_cast<int>(button)];
     }
 
     static bool IsButtonPressed(MouseButton button)
     {
-        return ButtonStates[static_cast<int>(button)] && 
-            !LastButtonStates[static_cast<int>(button)];
+        return m_ButtonStates[static_cast<int>(button)] && 
+            !m_LastButtonStates[static_cast<int>(button)];
     }
 
     static bool IsButtonReleased(MouseButton button)
     {
-        return !ButtonStates[static_cast<int>(button)] && 
-            LastButtonStates[static_cast<int>(button)];
+        return !m_ButtonStates[static_cast<int>(button)] && 
+            m_LastButtonStates[static_cast<int>(button)];
     }
 
-    static void SetPosition(Math::Vec2 position)
+    static void SetPosition(math::Vec2 position)
     {
-        Position = position;
-        glfwSetCursorPos(GlfwWindow, position.X, position.Y);
+        m_Position = position;
+        glfwSetCursorPos(m_GlfwWindow, position.x, position.y);
     }
 
     static void SetState(MouseState state)
     {
-        glfwSetInputMode(GlfwWindow, GLFW_CURSOR, static_cast<int32_t>(state));
+        glfwSetInputMode(m_GlfwWindow, GLFW_CURSOR, static_cast<int32_t>(state));
 
         //Reset the mouse position if the mouse has been unlocked
         //to avoid a 
-        if(Mouse::State == MouseState::Locked && state != MouseState::Locked)
+        if(Mouse::m_State == MouseState::Locked && state != MouseState::Locked)
         {
             double x, y;
-            glfwGetCursorPos(GlfwWindow, &x, &y);
+            glfwGetCursorPos(m_GlfwWindow, &x, &y);
 
-            Math::Vec2 newPosition(static_cast<float>(x), static_cast<float>(y));
-            Position     = newPosition;
-            LastPosition = newPosition; 
+            math::Vec2 newPosition(static_cast<float>(x), static_cast<float>(y));
+            m_Position     = newPosition;
+            m_LastPosition = newPosition; 
         }
 
-        Mouse::State = state;
+        Mouse::m_State = state;
     }
 
-    static bool PositionHasChanged()    { return Position != LastPosition; }
-    static bool PositionXHasChanged()   { return Position.X != LastPosition.X; }
-    static bool PositionYHasChanged()   { return Position.Y != LastPosition.Y; }
-    static Math::Vec2 GetPosition()     { return Position; }
-    static float GetX()                 { return Position.X; }
-    static float GetY()                 { return Position.Y; }
-    static Math::Vec2 GetLastPosition() { return LastPosition; }
-    static float GetLastX()             { return LastPosition.X; }
-    static float GetLastY()             { return LastPosition.Y; }
-    static Math::Vec2 GetPositionDiff() { return Position - LastPosition; }
-    static float GetPositionXDiff()     { return Position.X - LastPosition.X; }
-    static float GetPositionYDiff()     { return Position.Y - LastPosition.Y; }
-    static bool ScrollHasChanged()      { return Scroll != LastScroll; }
-    static bool ScrollXHasChanged()     { return Scroll.X != LastScroll.X; }
-    static bool ScrollYHasChanged()     { return Scroll.Y != LastScroll.Y; }
-    static Math::Vec2 GetScroll()       { return Scroll; }
-    static float GetScrollX()           { return Scroll.X; }
-    static float GetScrollY()           { return Scroll.Y; }
-    static Math::Vec2 GetScrollDiff()   { return Scroll - LastScroll; }
-    static float GetScrollXDiff()       { return Scroll.X - LastScroll.X; }
-    static float GetScrollYDiff()       { return Scroll.Y - LastScroll.Y; }
-    static MouseState GetState()        { return State; }
+    static bool PositionHasChanged()    { return m_Position != m_LastPosition; }
+    static bool PositionXHasChanged()   { return m_Position.x != m_LastPosition.x; }
+    static bool PositionYHasChanged()   { return m_Position.y != m_LastPosition.y; }
+    static math::Vec2 GetPosition()     { return m_Position; }
+    static float GetX()                 { return m_Position.x; }
+    static float GetY()                 { return m_Position.y; }
+    static math::Vec2 GetLastPosition() { return m_LastPosition; }
+    static float GetLastX()             { return m_LastPosition.x; }
+    static float GetLastY()             { return m_LastPosition.y; }
+    static math::Vec2 GetPositionDiff() { return m_Position - m_LastPosition; }
+    static float GetPositionXDiff()     { return m_Position.x - m_LastPosition.x; }
+    static float GetPositionYDiff()     { return m_Position.y - m_LastPosition.y; }
+    static bool ScrollHasChanged()      { return m_Scroll != m_LastScroll; }
+    static bool ScrollXHasChanged()     { return m_Scroll.x != m_LastScroll.x; }
+    static bool ScrollYHasChanged()     { return m_Scroll.y != m_LastScroll.y; }
+    static math::Vec2 GetScroll()       { return m_Scroll; }
+    static float GetScrollX()           { return m_Scroll.x; }
+    static float GetScrollY()           { return m_Scroll.y; }
+    static math::Vec2 GetScrollDiff()   { return m_Scroll - m_LastScroll; }
+    static float GetScrollXDiff()       { return m_Scroll.x - m_LastScroll.x; }
+    static float GetScrollYDiff()       { return m_Scroll.y - m_LastScroll.y; }
+    static MouseState GetState()        { return m_State; }
     
 private:
-    inline static constexpr uint32_t BUTTON_COUNT = GLFW_MOUSE_BUTTON_LAST + 1;
+    inline static constexpr uint32_t m_ButtonCount = GLFW_MOUSE_BUTTON_LAST + 1;
 
-    inline static bool ButtonStates[BUTTON_COUNT]     { };
-    inline static bool LastButtonStates[BUTTON_COUNT] { };
-    inline static MouseState State                    { MouseState::Default };
-    inline static Math::Vec2 Position                 { 0.0f, 0.0f };
-    inline static Math::Vec2 LastPosition             { 0.0f, 0.0f };
-    inline static Math::Vec2 Scroll                   { 0.0f, 0.0f };
-    inline static Math::Vec2 LastScroll               { 0.0f, 0.0f };
-    inline static GLFWwindow* GlfwWindow              { nullptr };
+    inline static bool m_ButtonStates[m_ButtonCount]     { };
+    inline static bool m_LastButtonStates[m_ButtonCount] { };
+    inline static MouseState m_State                     { MouseState::Default };
+    inline static math::Vec2 m_Position                  { 0.0f, 0.0f };
+    inline static math::Vec2 m_LastPosition              { 0.0f, 0.0f };
+    inline static math::Vec2 m_Scroll                    { 0.0f, 0.0f };
+    inline static math::Vec2 m_LastScroll                { 0.0f, 0.0f };
+    inline static GLFWwindow* m_GlfwWindow               { nullptr };
 };
 
-} //namespace Input
+} //namespace input

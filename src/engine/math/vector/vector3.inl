@@ -1,17 +1,17 @@
 #include <cmath>
 
-namespace Math
+namespace math
 {
 
 //! Constructors
 template<typename T>
-constexpr Vector3<T>::Vector3() : X{}, Y{}, Z{} { }
+constexpr Vector3<T>::Vector3() : x{}, y{}, z{} { }
 
 template<typename T>
-constexpr Vector3<T>::Vector3(T value) : X{value}, Y{value}, Z{value} { }
+constexpr Vector3<T>::Vector3(T value) : x{value}, y{value}, z{value} { }
 
 template<typename T>
-constexpr Vector3<T>::Vector3(T x, T y, T z) : X{x}, Y{y}, Z{z} { }
+constexpr Vector3<T>::Vector3(T x, T y, T z) : x{x}, y{y}, z{z} { }
 
 //! Operators
 template<typename T>
@@ -20,9 +20,9 @@ constexpr T& Vector3<T>::operator[](std::size_t index)
     switch (index)
     {
         default:
-        case 0: return X;
-        case 1: return Y;
-        case 2: return Z;
+        case 0: return x;
+        case 1: return y;
+        case 2: return z;
     }
 }
 
@@ -32,24 +32,24 @@ constexpr const T& Vector3<T>::operator[](std::size_t index) const
     switch (index)
     {
         default:
-        case 0: return X;
-        case 1: return Y;
-        case 2: return Z;
+        case 0: return x;
+        case 1: return y;
+        case 2: return z;
     }
 }
 
 template<typename T>
 constexpr Vector3<T> Vector3<T>::operator+(const Vector3<T>& other) const
 {
-    return Vector3(X + other.X, Y + other.Y, Z + other.Z);
+    return Vector3(x + other.x, y + other.y, z + other.z);
 }
 
 template<typename T>
 constexpr Vector3<T>& Vector3<T>::operator+=(const Vector3<T>& other)
 {
-    X += other.X;
-    Y += other.Y;
-    Z += other.Z;
+    x += other.x;
+    y += other.y;
+    z += other.z;
 
     return *this;
 }
@@ -57,15 +57,15 @@ constexpr Vector3<T>& Vector3<T>::operator+=(const Vector3<T>& other)
 template<typename T>
 constexpr Vector3<T> Vector3<T>::operator-(const Vector3<T>& other) const
 {
-    return Vector3(X - other.X, Y - other.Y, Z - other.Z);
+    return Vector3(x - other.x, y - other.y, z - other.z);
 }
 
 template<typename T>
 constexpr Vector3<T>& Vector3<T>::operator-=(const Vector3<T>& other)
 {
-    X -= other.X;
-    Y -= other.Y;
-    Z -= other.Z;
+    x -= other.x;
+    y -= other.y;
+    z -= other.z;
 
     return *this;
 }
@@ -73,15 +73,15 @@ constexpr Vector3<T>& Vector3<T>::operator-=(const Vector3<T>& other)
 template<typename T>
 constexpr Vector3<T> Vector3<T>::operator*(const T value) const
 {
-    return Vector3(X * value, Y * value, Z * value);
+    return Vector3(x * value, y * value, z * value);
 }
 
 template<typename T>
 constexpr Vector3<T>& Vector3<T>::operator*=(const T value)
 {
-    X *= value;
-    Y *= value;
-    Z *= value;
+    x *= value;
+    y *= value;
+    z *= value;
 
     return *this;
 }
@@ -89,15 +89,15 @@ constexpr Vector3<T>& Vector3<T>::operator*=(const T value)
 template<typename T>
 constexpr Vector3<T> Vector3<T>::operator*(const Vector3<T>& other) const
 {
-    return Vector3(X * other.X, Y * other.Y, Z * other.Z);
+    return Vector3(x * other.x, y * other.y, z * other.z);
 }
 
 template<typename T>
 constexpr Vector3<T>& Vector3<T>::operator*=(const Vector3<T>& other)
 {
-    X *= other.X;
-    Y *= other.Y;
-    Z *= other.Z;
+    x *= other.x;
+    y *= other.y;
+    z *= other.z;
 
     return *this;
 }
@@ -105,15 +105,15 @@ constexpr Vector3<T>& Vector3<T>::operator*=(const Vector3<T>& other)
 template<typename T>
 constexpr Vector3<T> Vector3<T>::operator/(const T value) const
 {
-    return Vector3(X / value, Y / value, Z / value);
+    return Vector3(x / value, y / value, z / value);
 }
 
 template<typename T>
 constexpr Vector3<T>& Vector3<T>::operator/=(const T value)
 {
-    X /= value;
-    Y /= value;
-    Z /= value;
+    x /= value;
+    y /= value;
+    z /= value;
 
     return *this;
 }
@@ -121,15 +121,15 @@ constexpr Vector3<T>& Vector3<T>::operator/=(const T value)
 template<typename T>
 constexpr Vector3<T> Vector3<T>::operator/(const Vector3<T>& other) const
 {
-    return Vector3(X / other.X, Y / other.Y, Z / other.Z);
+    return Vector3(x / other.x, y / other.y, z / other.z);
 }
 
 template<typename T>
 constexpr Vector3<T>& Vector3<T>::operator/=(const Vector3<T>& other)
 {
-    X /= other.X;
-    Y /= other.Y;
-    Z /= other.Z;
+    x /= other.x;
+    y /= other.y;
+    z /= other.z;
     
     return *this;
 }
@@ -137,63 +137,63 @@ constexpr Vector3<T>& Vector3<T>::operator/=(const Vector3<T>& other)
 template<typename T>
 constexpr bool Vector3<T>::operator==(const Vector3<T>& other) const
 {
-    return X == other.X && 
-           Y == other.Y && 
-           Z == other.Z;
+    return x == other.x && 
+           y == other.y && 
+           z == other.z;
 }
 
 template<typename T>
 constexpr bool Vector3<T>::operator!=(const Vector3<T>& other) const
 {
-    return X != other.X || 
-           Y != other.Y || 
-           Z != other.Z;
+    return x != other.x || 
+           y != other.y || 
+           z != other.z;
 }
 
 //! Operations
 template<typename T>
 constexpr T Vector3<T>::Dot(const Vector3<T>& other) const 
 {
-    return X * other.X + Y * other.Y + Z * other.Z;
+    return x * other.x + y * other.y + z * other.z;
 }
 
 template<typename T>
 constexpr T Vector3<T>::Length() const
 {
-    return std::sqrt(X * X + Y * Y + Z * Z);
+    return std::sqrt(x * x + y * y + z * z);
 }
 
 template<typename T>
 constexpr T Vector3<T>::LengthSquared() const
 {
-    return X * X + Y * Y + Z * Z;
+    return x * x + y * y + z * z;
 }
 
 template<typename T>
 constexpr Vector3<T> Vector3<T>::Cross(const Vector3& other) const
 {
-    return Vector3(Y * other.Z - Z * other.Y,
-                   Z * other.X - X * other.Z,
-                   X * other.Y - Y * other.X);
+    return Vector3(y * other.z - z * other.y,
+                   z * other.x - x * other.z,
+                   x * other.y - y * other.x);
 }
 
 template<typename T>
 constexpr Vector3<T> Vector3<T>::GetNormalized() const
 {
-    T l = std::sqrt(X * X + Y * Y + Z * Z);
+    T l = std::sqrt(x * x + y * y + z * z);
 
-    return Vector3(X / l, Y / l, Z / l);
+    return Vector3(x / l, y / l, z / l);
 }
 
 template<typename T>
 constexpr Vector3<T> Vector3<T>::GetSafeNormalized() const
 {
-    T l = std::sqrt(X * X + Y * Y + Z * Z);
+    T l = std::sqrt(x * x + y * y + z * z);
 
     if(l != 0)
-        return Vector3(X / l, Y / l, Z / l);
+        return Vector3(x / l, y / l, z / l);
 
-    return Vector3(X, Y, Z);
+    return Vector3(x, y, z);
 }
 
 template<typename T>
@@ -201,9 +201,9 @@ constexpr Vector3<T> Vector3<T>::GetReflected(const Vector3<T>& normal) const
 {
     T proj = Dot(normal) * 2;
 
-    return Vector3(X - normal.X * proj, 
-                   Y - normal.Y * proj,
-                   Z - normal.Z * proj);
+    return Vector3(x - normal.x * proj, 
+                   y - normal.y * proj,
+                   z - normal.z * proj);
 }
 
-} //namespace Math
+} //namespace math

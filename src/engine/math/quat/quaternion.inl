@@ -1,14 +1,14 @@
 #include <cmath>
 
-namespace Math
+namespace math
 {
 
 //! Constructors
 template<typename T>
-constexpr Quaternion<T>::Quaternion() : X{}, Y{}, Z{}, W{} { }
+constexpr Quaternion<T>::Quaternion() : x{}, y{}, z{}, w{} { }
 
 template<typename T>
-constexpr Quaternion<T>::Quaternion(T x, T y, T z, T w) : X{x}, Y{y}, Z{z}, W{w} { }
+constexpr Quaternion<T>::Quaternion(T x, T y, T z, T w) : x{x}, y{y}, z{z}, w{w} { }
 
 //! Operators
 template<typename T>
@@ -17,10 +17,10 @@ constexpr T& Quaternion<T>::operator[](std::size_t index)
     switch (index)
     {
         default:
-        case 0: return X;
-        case 1: return Y;
-        case 2: return Z;
-        case 3: return W;
+        case 0: return x;
+        case 1: return y;
+        case 2: return z;
+        case 3: return w;
     }
 }
 
@@ -30,26 +30,26 @@ constexpr const T& Quaternion<T>::operator[](std::size_t index) const
     switch (index)
     {
         default:
-        case 0: return X;
-        case 1: return Y;
-        case 2: return Z;
-        case 3: return W;
+        case 0: return x;
+        case 1: return y;
+        case 2: return z;
+        case 3: return w;
     }
 }
 
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::operator+(const Quaternion<T>& other) const
 {
-    return Quaternion(X + other.X, Y + other.Y, Z + other.Z, W + other.W);
+    return Quaternion(x + other.x, y + other.y, z + other.z, w + other.w);
 }
 
 template<typename T>
 constexpr Quaternion<T>& Quaternion<T>::operator+=(const Quaternion<T>& other)
 {
-    X += other.X;
-    Y += other.Y;
-    Z += other.Z;
-    W += other.W;
+    x += other.x;
+    y += other.y;
+    z += other.z;
+    w += other.w;
 
     return *this;
 }
@@ -57,16 +57,16 @@ constexpr Quaternion<T>& Quaternion<T>::operator+=(const Quaternion<T>& other)
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::operator-(const Quaternion<T>& other) const
 {
-    return Quaternion(X - other.X, Y - other.Y, Z - other.Z, W - other.W);
+    return Quaternion(x - other.x, y - other.y, z - other.z, w - other.w);
 }
 
 template<typename T>
 constexpr Quaternion<T>& Quaternion<T>::operator-=(const Quaternion<T>& other)
 {
-    X -= other.X;
-    Y -= other.Y;
-    Z -= other.Z;
-    W -= other.W;
+    x -= other.x;
+    y -= other.y;
+    z -= other.z;
+    w -= other.w;
 
     return *this;
 }
@@ -74,16 +74,16 @@ constexpr Quaternion<T>& Quaternion<T>::operator-=(const Quaternion<T>& other)
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::operator*(const T value) const
 {
-    return Quaternion(X * value, Y * value, Z * value, W * value);
+    return Quaternion(x * value, y * value, z * value, w * value);
 }
 
 template<typename T>
 constexpr Quaternion<T>& Quaternion<T>::operator*=(const T value)
 {
-    X *= value;
-    Y *= value;
-    Z *= value;
-    W *= value;
+    x *= value;
+    y *= value;
+    z *= value;
+    w *= value;
 
     return *this;
 }
@@ -91,35 +91,35 @@ constexpr Quaternion<T>& Quaternion<T>::operator*=(const T value)
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::operator*(const Quaternion<T>& other) const
 {
-    T dot            = X * other.X + Y * other.Y + Z * other.Z;
+    T dot            = x * other.x + y * other.y + z * other.z;
     Vector3<T> cross = Vector3 { 
-        Y * other.Z - Z * other.Y, 
-        Z * other.X - X * other.Z,
-        X * other.Y - Y * other.X 
+        y * other.z - z * other.y, 
+        z * other.x - x * other.z,
+        x * other.y - y * other.x 
     };
     
     return Quaternion(
-        W * other.X + other.W * X + cross.X,
-        W * other.Y + other.W * Y + cross.Y,
-        W * other.Z + other.W * Z + cross.Z,
-        W * other.W - dot 
+        w * other.x + other.w * x + cross.x,
+        w * other.y + other.w * y + cross.y,
+        w * other.z + other.w * z + cross.z,
+        w * other.w - dot 
     );
 }
 
 template<typename T>
 constexpr Quaternion<T>& Quaternion<T>::operator*=(const Quaternion<T>& other)
 {
-    T dot            = X * other.X + Y * other.Y + Z * other.Z;
+    T dot            = x * other.x + y * other.y + z * other.z;
     Vector3<T> cross = Vector3 { 
-        Y * other.Z - Z * other.Y, 
-        Z * other.X - X * other.Z,
-        X * other.Y - Y * other.X 
+        y * other.z - z * other.y, 
+        z * other.x - x * other.z,
+        x * other.y - y * other.x 
     };
 
-    X = W * other.X + other.W * X + cross.X;
-    Y = W * other.Y + other.W * Y + cross.Y;
-    Z = W * other.Z + other.W * Z + cross.Z;
-    W = W * other.W - dot;
+    x = w * other.x + other.w * x + cross.x;
+    y = w * other.y + other.w * y + cross.y;
+    z = w * other.z + other.w * z + cross.z;
+    w = w * other.w - dot;
 
     return *this;
 }
@@ -127,47 +127,47 @@ constexpr Quaternion<T>& Quaternion<T>::operator*=(const Quaternion<T>& other)
 template<typename T>
 constexpr Vector3<T> Quaternion<T>::operator*(const Vector3<T>& v) const
 {
-    T dot1            = X * v.X + Y * v.Y + Z * v.Z;
+    T dot1            = x * v.x + y * v.y + z * v.z;
     Vector3<T> cross1 = Vector3( 
-        Y * v.Z - Z * v.Y, 
-        Z * v.X - X * v.Z,
-        X * v.Y - Y * v.X 
+        y * v.z - z * v.y, 
+        z * v.x - x * v.z,
+        x * v.y - y * v.x 
     );
 
     Quaternion<T> q = Quaternion(
-        W * v.X + cross1.X,
-        W * v.Y + cross1.Y,
-        W * v.Z + cross1.Z,
+        w * v.x + cross1.x,
+        w * v.y + cross1.y,
+        w * v.z + cross1.z,
         -dot1
     );
     Quaternion<T> conj = GetConjugated();
 
     Vector3<T> cross2 = Vector3( 
-        q.Y * conj.Z - q.Z * conj.Y, 
-        q.Z * conj.X - q.X * conj.Z,
-        q.X * conj.Y - q.Y * conj.X 
+        q.y * conj.z - q.z * conj.y, 
+        q.z * conj.x - q.x * conj.z,
+        q.x * conj.y - q.y * conj.x 
     );
     
     return Vector3<T>(
-        q.W * conj.X + conj.W * q.X + cross2.X,
-        q.W * conj.Y + conj.W * q.Y + cross2.Y,
-        q.W * conj.Z + conj.W * q.Z + cross2.Z
+        q.w * conj.x + conj.w * q.x + cross2.x,
+        q.w * conj.y + conj.w * q.y + cross2.y,
+        q.w * conj.z + conj.w * q.z + cross2.z
     );
 }
 
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::operator/(const T value) const
 {
-    return Quaternion(X / value, Y / value, Z / value, W / value);
+    return Quaternion(x / value, y / value, z / value, w / value);
 }
 
 template<typename T>
 constexpr Quaternion<T>& Quaternion<T>::operator/=(const T value)
 {
-    X /= value;
-    Y /= value;
-    Z /= value;
-    W /= value;
+    x /= value;
+    y /= value;
+    z /= value;
+    w /= value;
 
     return *this;
 }
@@ -175,95 +175,95 @@ constexpr Quaternion<T>& Quaternion<T>::operator/=(const T value)
 template<typename T>
 constexpr bool Quaternion<T>::operator==(const Quaternion<T>& other) const
 {
-    return X == other.X && 
-           Y == other.Y && 
-           Z == other.Z &&
-           W == other.W;
+    return x == other.x && 
+           y == other.y && 
+           z == other.z &&
+           w == other.w;
 }
 
 template<typename T>
 constexpr bool Quaternion<T>::operator!=(const Quaternion<T>& other) const
 {
-    return X != other.X || 
-           Y != other.Y || 
-           Z != other.Z ||
-           W != other.W;
+    return x != other.x || 
+           y != other.y || 
+           z != other.z ||
+           w != other.w;
 }
 
 //! Operations
 template<typename T>
 constexpr T Quaternion<T>::Dot(const Quaternion& other) const
 {
-    return X * other.X + Y * other.Y + Z * other.Z + W * other.W;
+    return x * other.x + y * other.y + z * other.z + w * other.w;
 }
 
 template<typename T>
 constexpr T Quaternion<T>::Length() const
 {
-    return std::sqrt(X * X + Y * Y + Z * Z + W * W);
+    return std::sqrt(x * x + y * y + z * z + w * w);
 }
 
 template<typename T>
 constexpr T Quaternion<T>::LengthSquared() const
 {
-    return X * X + Y * Y + Z * Z + W * W;
+    return x * x + y * y + z * z + w * w;
 }
 
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::GetNormalized() const
 {
-    T l = std::sqrt(X * X + Y * Y + Z * Z + W * W);
+    T l = std::sqrt(x * x + y * y + z * z + w * w);
 
-    return Quaternion(X / l, Y / l, Z / l, W / l);
+    return Quaternion(x / l, y / l, z / l, w / l);
 }
 
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::GetSafeNormalized() const
 {
-    T l = std::sqrt(X * X + Y * Y + Z * Z + W * W);
+    T l = std::sqrt(x * x + y * y + z * z + w * w);
 
     if(l != 0)
-        return Quaternion(X / l, Y / l, Z / l, W / l);
+        return Quaternion(x / l, y / l, z / l, w / l);
 
-    return Quaternion(X, Y, Z, W);
+    return Quaternion(x, y, z, w);
 }
 
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::GetConjugated() const
 {
-    return Quaternion(-X, -Y, -Z, W);
+    return Quaternion(-x, -y, -z, w);
 }
 
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::GetInverse() const
 {
-    T ls = X * X + Y * Y + Z * Z + W * W;
-    return Quaternion(-X / ls, -Y / ls, -Z / ls, W / ls); 
+    T ls = x * x + y * y + z * z + w * w;
+    return Quaternion(-x / ls, -y / ls, -z / ls, w / ls); 
 }
 
 template<typename T>
 constexpr Matrix4<T> Quaternion<T>::ToMatrix4() const
 {
-    T ww = W * W;
-    T xy = X * Y;
-    T xz = X * Z;
-    T xw = X * W;
-    T yz = Y * Z;
-    T yw = Y * W;
-    T zw = Z * W;
+    T ww = w * w;
+    T xy = x * y;
+    T xz = x * z;
+    T xw = x * w;
+    T yz = y * z;
+    T yw = y * w;
+    T zw = z * w;
 
     return Matrix4<T>(
-        2 * (ww + X*X) - 1,
+        2 * (ww + x*x) - 1,
         2 * (xy + zw),
         2 * (xz - yw),
         0,
         2 * (xy - zw),
-        2 * (ww + Y*Y) - 1,
+        2 * (ww + y*y) - 1,
         2 * (yz + xw),
         0,
         2 * (xz + yw),
         2 * (yz - xw),
-        2 * (ww + Z*Z) - 1,
+        2 * (ww + z*z) - 1,
         0,
         0,
         0,
@@ -280,7 +280,7 @@ constexpr Quaternion<T> Quaternion<T>::FromAxis(const Vector3<T>& axis, T radian
     T cos       = std::cos(halfAngle);
     T sin       = std::sin(halfAngle);
 
-    return Quaternion(sin * axis.X, sin * axis.Y, sin * axis.Z, cos);
+    return Quaternion(sin * axis.x, sin * axis.y, sin * axis.z, cos);
 }
 
-} //namespace Math
+} //namespace math

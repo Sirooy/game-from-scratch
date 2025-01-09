@@ -1,33 +1,33 @@
 #include <iostream>
-#include <engine/math/vector/vector2.hpp>
-#include <engine/math/vector/vector3.hpp>
-#include <engine/math/vector/vector4.hpp>
+#include <engine/math/vector/Vector2.hpp>
+#include <engine/math/vector/Vector3.hpp>
+#include <engine/math/vector/Vector4.hpp>
 #include <engine/math/matrix/Matrix2.hpp>
 #include <engine/math/matrix/Matrix3.hpp>
 #include <engine/math/matrix/Matrix4.hpp>
-#include <engine/math/quat/quaternion.hpp>
-#include <engine/input/input.hpp>
+#include <engine/math/quat/Quaternion.hpp>
+#include <engine/input/Input.hpp>
 #include <glfw/glfw3.h>
 #include <numbers>
 
 template<typename T>
-std::ostream& operator<<(std::ostream& os, Math::Vector2<T> v)
+std::ostream& operator<<(std::ostream& os, math::Vector2<T> v)
 {
-    std::cout << '[' << v.X << ' ' << v.Y << ']';
+    std::cout << '[' << v.x << ' ' << v.y << ']';
     return os;
 }
 
 template<typename T>
-std::ostream& operator<<(std::ostream& os, Math::Vector3<T> v)
+std::ostream& operator<<(std::ostream& os, math::Vector3<T> v)
 {
-    std::cout << '[' << v.X << ' ' << v.Y << ' ' << v.Z << ']';
+    std::cout << '[' << v.x << ' ' << v.y << ' ' << v.z << ']';
     return os;
 }
 
 template<typename T>
-std::ostream& operator<<(std::ostream& os, Math::Vector4<T> v)
+std::ostream& operator<<(std::ostream& os, math::Vector4<T> v)
 {
-    std::cout << '[' << v.X << ' ' << v.Y << ' ' << v.Z << ' ' << v.W << ']';
+    std::cout << '[' << v.x << ' ' << v.y << ' ' << v.z << ' ' << v.w << ']';
     return os;
 }
 
@@ -47,13 +47,13 @@ int main()
         throw std::runtime_error("Could not create the window");
     }
     glfwSwapInterval(1);
-    Input::Init(window);
+    input::Init(window);
 
     while (!glfwWindowShouldClose(window))
     {
         
         glfwSwapBuffers(window);
-        Input::Update();
+        input::Update();
         glfwPollEvents();
     }
 

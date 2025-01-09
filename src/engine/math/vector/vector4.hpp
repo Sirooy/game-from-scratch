@@ -2,12 +2,8 @@
 #include <cstdint>
 #include <cstddef>
 
-namespace Math
+namespace math
 {
-
-//!########## ########## ##########
-//!##########  Vector 4  ##########
-//!########## ########## ##########
 
 template<typename T>
 struct Vector4
@@ -48,7 +44,7 @@ public:
     constexpr Vector4 GetSafeNormalized() const;
 
 public:
-    T X, Y, Z, W;
+    T x, y, z, w;
 };
 
 //Instantiate common templates
@@ -58,7 +54,7 @@ template class Vector4<double>;
 using Vec4  = Vector4<float>;
 using Vec4d = Vector4<double>;
 
-} // namespace Math
+} // namespace math
 
-#include "vector4.inl"
+#include "Vector4.inl"
 

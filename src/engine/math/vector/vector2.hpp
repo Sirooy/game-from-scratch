@@ -3,12 +3,8 @@
 #include <cstdint>
 #include <cstddef>
 
-namespace Math
+namespace math
 {
-
-//!########## ########## ##########
-//!##########  Vector 2  ##########
-//!########## ########## ##########
 
 template<typename T>
 concept IsNumberConcept = std::integral<T> || std::floating_point<T>;
@@ -55,7 +51,7 @@ public:
     constexpr Vector2 GetRotated(T radians) const;
 
 public:
-    T X, Y;
+    T x, y;
 };
 
 //Instantiate common templates
@@ -65,6 +61,6 @@ template class Vector2<double>;
 using Vec2  = Vector2<float>;
 using Vec2d = Vector2<double>;
 
-} // namespace Math
+} // namespace math
 
-#include "vector2.inl"
+#include "Vector2.inl"

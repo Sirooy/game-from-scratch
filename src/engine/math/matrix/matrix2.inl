@@ -1,54 +1,54 @@
 #include <cmath>
 
-namespace Math
+namespace math
 {
 
 //! Constructors
 template<typename T>
 constexpr Matrix2<T>::Matrix2() : 
-    Arr{1, 0, 0, 1} { }
+    arr{1, 0, 0, 1} { }
 
 template<typename T>
 constexpr Matrix2<T>::Matrix2(T value) : 
-    Arr{value, 0, 0, value} { }
+    arr{value, 0, 0, value} { }
 
 template<typename T>
 constexpr Matrix2<T>::Matrix2(T m11, T m22) : 
-    Arr{m11, 0, 0, m22} { }
+    arr{m11, 0, 0, m22} { }
 
 template<typename T>
 constexpr Matrix2<T>::Matrix2(T m11, T m21, T m12, T m22) : 
-    Arr{m11, m21, m12, m22} { }
+    arr{m11, m21, m12, m22} { }
 
 //! Operators
 template<typename T>
 constexpr T* Matrix2<T>::operator[](std::size_t index)
 {
-    return &Arr[index * NumColumns];
+    return &arr[index * NumColumns];
 }
 
 template<typename T>
 constexpr const T* Matrix2<T>::operator[](std::size_t index) const
 {
-    return &Arr[index * NumColumns];
+    return &arr[index * NumColumns];
 }
 
 template<typename T>
 constexpr Matrix2<T> Matrix2<T>::operator+(const Matrix2<T>& other) const
 {
     return Matrix2(
-        Arr[0] + other.Arr[0], Arr[1] + other.Arr[1], 
-        Arr[2] + other.Arr[2], Arr[3] + other.Arr[3]
+        arr[0] + other.arr[0], arr[1] + other.arr[1], 
+        arr[2] + other.arr[2], arr[3] + other.arr[3]
     );
 }
 
 template<typename T>
 constexpr Matrix2<T>& Matrix2<T>::operator+=(const Matrix2<T>& other)
 {
-    Arr[0] += other.Arr[0];
-    Arr[1] += other.Arr[1];
-    Arr[2] += other.Arr[2];
-    Arr[3] += other.Arr[3];
+    arr[0] += other.arr[0];
+    arr[1] += other.arr[1];
+    arr[2] += other.arr[2];
+    arr[3] += other.arr[3];
 
     return *this;
 }
@@ -57,18 +57,18 @@ template<typename T>
 constexpr Matrix2<T> Matrix2<T>::operator-(const Matrix2<T>& other) const
 {
     return Matrix2(
-        Arr[0] - other.Arr[0], Arr[1] - other.Arr[1], 
-        Arr[2] - other.Arr[2], Arr[3] - other.Arr[3]
+        arr[0] - other.arr[0], arr[1] - other.arr[1], 
+        arr[2] - other.arr[2], arr[3] - other.arr[3]
     );
 }
 
 template<typename T>
 constexpr Matrix2<T>& Matrix2<T>::operator-=(const Matrix2<T>& other)
 {
-    Arr[0] -= other.Arr[0];
-    Arr[1] -= other.Arr[1];
-    Arr[2] -= other.Arr[2];
-    Arr[3] -= other.Arr[3];
+    arr[0] -= other.arr[0];
+    arr[1] -= other.arr[1];
+    arr[2] -= other.arr[2];
+    arr[3] -= other.arr[3];
 
     return *this;
 }
@@ -77,18 +77,18 @@ template<typename T>
 constexpr Matrix2<T> Matrix2<T>::operator*(const T value) const
 {
     return Matrix2(
-        Arr[0] * value, Arr[1] * value, 
-        Arr[2] * value, Arr[3] * value
+        arr[0] * value, arr[1] * value, 
+        arr[2] * value, arr[3] * value
     );
 }
 
 template<typename T>
 constexpr Matrix2<T>& Matrix2<T>::operator*=(const T value)
 {
-    Arr[0] *= value;
-    Arr[1] *= value;
-    Arr[2] *= value;
-    Arr[3] *= value;
+    arr[0] *= value;
+    arr[1] *= value;
+    arr[2] *= value;
+    arr[3] *= value;
 
     return *this;
 }
@@ -97,10 +97,10 @@ template<typename T>
 constexpr Matrix2<T> Matrix2<T>::operator*(const Matrix2<T>& other) const
 {
     return Matrix2(
-        Arr[0] * other.Arr[0] + Arr[2] * other.Arr[1],
-        Arr[1] * other.Arr[0] + Arr[3] * other.Arr[1],
-        Arr[0] * other.Arr[2] + Arr[2] * other.Arr[3],
-        Arr[1] * other.Arr[2] + Arr[3] * other.Arr[3]
+        arr[0] * other.arr[0] + arr[2] * other.arr[1],
+        arr[1] * other.arr[0] + arr[3] * other.arr[1],
+        arr[0] * other.arr[2] + arr[2] * other.arr[3],
+        arr[1] * other.arr[2] + arr[3] * other.arr[3]
     );
 }
 
@@ -108,18 +108,18 @@ template<typename T>
 constexpr Matrix2<T>& Matrix2<T>::operator*=(const Matrix2<T>& other)
 {
     //Row 1
-    T val1 = Arr[0] * other.Arr[0] + Arr[2] * other.Arr[1];
-    T val2 = Arr[0] * other.Arr[2] + Arr[2] * other.Arr[3];
+    T val1 = arr[0] * other.arr[0] + arr[2] * other.arr[1];
+    T val2 = arr[0] * other.arr[2] + arr[2] * other.arr[3];
 
-    Arr[0] = val1;
-    Arr[2] = val2;
+    arr[0] = val1;
+    arr[2] = val2;
 
     //Row 2
-    val1 = Arr[1] * other.Arr[0] + Arr[3] * other.Arr[1];
-    val2 = Arr[1] * other.Arr[2] + Arr[3] * other.Arr[3];
+    val1 = arr[1] * other.arr[0] + arr[3] * other.arr[1];
+    val2 = arr[1] * other.arr[2] + arr[3] * other.arr[3];
 
-    Arr[1] = val1;
-    Arr[3] = val2;
+    arr[1] = val1;
+    arr[3] = val2;
 
     return *this;
 }
@@ -128,18 +128,18 @@ template<typename T>
 constexpr Matrix2<T> Matrix2<T>::operator/(const T value) const
 {
     return Matrix2(
-        Arr[0] / value, Arr[1] / value, 
-        Arr[2] / value, Arr[3] / value
+        arr[0] / value, arr[1] / value, 
+        arr[2] / value, arr[3] / value
     );
 }
 
 template<typename T>
 constexpr Matrix2<T>& Matrix2<T>::operator/=(const T value)
 {
-    Arr[0] /= value;
-    Arr[1] /= value;
-    Arr[2] /= value;
-    Arr[3] /= value;
+    arr[0] /= value;
+    arr[1] /= value;
+    arr[2] /= value;
+    arr[3] /= value;
 
     return *this;
 }
@@ -147,26 +147,26 @@ constexpr Matrix2<T>& Matrix2<T>::operator/=(const T value)
 template<typename T>
 constexpr bool Matrix2<T>::operator==(const Matrix2<T>& other) const
 {
-    return Arr[0] == other.Arr[0] && 
-           Arr[1] == other.Arr[1] && 
-           Arr[2] == other.Arr[2] &&
-           Arr[3] == other.Arr[3];
+    return arr[0] == other.arr[0] && 
+           arr[1] == other.arr[1] && 
+           arr[2] == other.arr[2] &&
+           arr[3] == other.arr[3];
 }
 
 template<typename T>
 constexpr bool Matrix2<T>::operator!=(const Matrix2<T>& other) const
 {
-    return Arr[0] != other.Arr[0] || 
-           Arr[1] != other.Arr[1] || 
-           Arr[2] != other.Arr[2] ||
-           Arr[3] != other.Arr[3];
+    return arr[0] != other.arr[0] || 
+           arr[1] != other.arr[1] || 
+           arr[2] != other.arr[2] ||
+           arr[3] != other.arr[3];
 }
 
 //! Operations
 template<typename T>
 constexpr T Matrix2<T>::Determinant() const
 {
-    return Arr[0] * Arr[3] - Arr[1] * Arr[2];
+    return arr[0] * arr[3] - arr[1] * arr[2];
 }
 
 template<typename T>
@@ -176,10 +176,10 @@ constexpr Matrix2<T> Matrix2<T>::GetInverse() const
     T invDet = 1 / det;
 
     return Matrix2(
-         invDet * Arr[3],
-        -invDet * Arr[1],
-         invDet * Arr[2],
-        -invDet * Arr[0]
+         invDet * arr[3],
+        -invDet * arr[1],
+         invDet * arr[2],
+        -invDet * arr[0]
     );
 }
 
@@ -187,10 +187,10 @@ template<typename T>
 constexpr Matrix2<T> Matrix2<T>::GetTranspose() const
 {
     return Matrix2(
-        Arr[0],
-        Arr[2],
-        Arr[1],
-        Arr[3]
+        arr[0],
+        arr[2],
+        arr[1],
+        arr[3]
     );
 }
 
@@ -198,10 +198,10 @@ template<typename T>
 constexpr Matrix2<T> Matrix2<T>::GetScaled(const Vector2<T> scale) const
 {
     return Matrix2(
-        Arr[0] * scale.X,
-        Arr[1] * scale.X,
-        Arr[2] * scale.Y,
-        Arr[3] * scale.Y
+        arr[0] * scale.x,
+        arr[1] * scale.x,
+        arr[2] * scale.y,
+        arr[3] * scale.y
     );
 }
 
@@ -212,10 +212,10 @@ constexpr Matrix2<T> Matrix2<T>::GetRotated(T radians) const
     T sin = std::sin(radians);
 
     return Matrix2(
-         Arr[0] * cos + Arr[2] * sin,
-         Arr[1] * cos + Arr[3] * sin,
-        -Arr[0] * sin + Arr[2] * cos,
-        -Arr[1] * sin + Arr[3] * cos
+         arr[0] * cos + arr[2] * sin,
+         arr[1] * cos + arr[3] * sin,
+        -arr[0] * sin + arr[2] * cos,
+        -arr[1] * sin + arr[3] * cos
     );
 }
 
@@ -223,8 +223,8 @@ template<typename T>
 constexpr Matrix2<T> Matrix2<T>::CreateScale(const Vector2<T> scale)
 {
     return Matrix2(
-        scale.X, 0,
-        0, scale.Y
+        scale.x, 0,
+        0, scale.y
     );
 }
 
@@ -240,4 +240,4 @@ constexpr Matrix2<T> Matrix2<T>::CreateRotation(T radians)
     );
 }  
 
-} //namespace Math
+} //namespace math

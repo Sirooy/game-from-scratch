@@ -2,7 +2,7 @@
 #include <cstring>
 #include <glfw/glfw3.h>
 
-namespace Input
+namespace input
 {
 
 enum class KeyCode
@@ -116,43 +116,43 @@ public:
         {
             if(key != GLFW_KEY_UNKNOWN)
             {
-                KeyStates[key] = static_cast<bool>(action);
+                m_KeyStates[key] = static_cast<bool>(action);
             }
         });
     }
 
     static void Update()
     {
-        std::memcpy(LastKeyStates, KeyStates, KEY_COUNT);
+        std::memcpy(m_LastKeyStates, m_KeyStates, m_KeyCount);
     }
 
     static bool IsKeyDown(KeyCode key)
     {
-        return KeyStates[static_cast<int>(key)];
+        return m_KeyStates[static_cast<int>(key)];
     }
 
     static bool IsKeyUp(KeyCode key)
     {
-        return !KeyStates[static_cast<int>(key)];
+        return !m_KeyStates[static_cast<int>(key)];
     }
 
     static bool IsKeyPressed(KeyCode key)
     {
-        return !LastKeyStates[static_cast<int>(key)] && 
-            KeyStates[static_cast<int>(key)];
+        return !m_LastKeyStates[static_cast<int>(key)] && 
+            m_KeyStates[static_cast<int>(key)];
     }
 
     static bool IsKeyReleased(KeyCode key)
     {
-        return LastKeyStates[static_cast<int>(key)] && 
-            !KeyStates[static_cast<int>(key)];
+        return m_LastKeyStates[static_cast<int>(key)] && 
+            !m_KeyStates[static_cast<int>(key)];
     }
     
 private:
-    inline static constexpr uint32_t KEY_COUNT = GLFW_KEY_LAST + 1;
+    inline static constexpr uint32_t m_KeyCount = GLFW_KEY_LAST + 1;
 
-    inline static bool KeyStates[KEY_COUNT]     { };
-    inline static bool LastKeyStates[KEY_COUNT] { };
+    inline static bool m_KeyStates[m_KeyCount]     { };
+    inline static bool m_LastKeyStates[m_KeyCount] { };
 };
 
-} //namespace Input
+} //namespace input

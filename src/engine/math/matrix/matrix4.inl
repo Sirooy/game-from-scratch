@@ -1,26 +1,26 @@
 #include <cmath>
 
-namespace Math
+namespace math
 {
 
 //! Constructors
 template<typename T>
 constexpr Matrix4<T>::Matrix4() : 
-    Arr{1, 0, 0, 0, 
+    arr{1, 0, 0, 0, 
         0, 1, 0, 0,
         0, 0, 1, 0,
         0, 0, 0, 1} { }
 
 template<typename T>
 constexpr Matrix4<T>::Matrix4(T value) : 
-    Arr{value, 0, 0, 0,
+    arr{value, 0, 0, 0,
         0, value, 0, 0,
         0, 0, value, 0,
         0, 0, 0, value} { }
 
 template<typename T>
 constexpr Matrix4<T>::Matrix4(T m11, T m22, T m33, T m44) : 
-    Arr{m11, 0, 0, 0, 
+    arr{m11, 0, 0, 0, 
         0, m22, 0, 0, 
         0, 0, m33, 0,
         0, 0, 0, m44} { }
@@ -28,7 +28,7 @@ constexpr Matrix4<T>::Matrix4(T m11, T m22, T m33, T m44) :
 template<typename T>
 constexpr Matrix4<T>::Matrix4(T m11, T m21, T m31, T m41, T m12, T m22, T m32, T m42, 
         T m13, T m23, T m33, T m43, T m14, T m24, T m34, T m44) : 
-    Arr{m11, m21, m31, m41,
+    arr{m11, m21, m31, m41,
         m12, m22, m32, m42,
         m13, m23, m33, m43,
         m14, m24, m34, m44} { }
@@ -37,45 +37,45 @@ constexpr Matrix4<T>::Matrix4(T m11, T m21, T m31, T m41, T m12, T m22, T m32, T
 template<typename T>
 constexpr T* Matrix4<T>::operator[](std::size_t index)
 {
-    return &Arr[index * NumColumns];
+    return &arr[index * NumColumns];
 }
 
 template<typename T>
 constexpr const T* Matrix4<T>::operator[](std::size_t index) const
 {
-    return &Arr[index * NumColumns];
+    return &arr[index * NumColumns];
 }
 
 template<typename T>
 constexpr Matrix4<T> Matrix4<T>::operator+(const Matrix4<T>& other) const
 {
     return Matrix4(
-        Arr[0]  + other.Arr[0],  Arr[1]  + other.Arr[1],  Arr[2]  + other.Arr[2],  Arr[3]  + other.Arr[3],
-        Arr[4]  + other.Arr[4],  Arr[5]  + other.Arr[5],  Arr[6]  + other.Arr[6],  Arr[7]  + other.Arr[7],
-        Arr[8]  + other.Arr[8],  Arr[9]  + other.Arr[9],  Arr[10] + other.Arr[10], Arr[11] + other.Arr[11],
-        Arr[12] + other.Arr[12], Arr[13] + other.Arr[13], Arr[14] + other.Arr[14], Arr[15] + other.Arr[15]
+        arr[0]  + other.arr[0],  arr[1]  + other.arr[1],  arr[2]  + other.arr[2],  arr[3]  + other.arr[3],
+        arr[4]  + other.arr[4],  arr[5]  + other.arr[5],  arr[6]  + other.arr[6],  arr[7]  + other.arr[7],
+        arr[8]  + other.arr[8],  arr[9]  + other.arr[9],  arr[10] + other.arr[10], arr[11] + other.arr[11],
+        arr[12] + other.arr[12], arr[13] + other.arr[13], arr[14] + other.arr[14], arr[15] + other.arr[15]
     );
 }
 
 template<typename T>
 constexpr Matrix4<T>& Matrix4<T>::operator+=(const Matrix4<T>& other)
 {
-    Arr[0]  += other.Arr[0];
-    Arr[1]  += other.Arr[1];
-    Arr[2]  += other.Arr[2];
-    Arr[3]  += other.Arr[3];
-    Arr[4]  += other.Arr[4];
-    Arr[5]  += other.Arr[5];
-    Arr[6]  += other.Arr[6];
-    Arr[7]  += other.Arr[7];
-    Arr[8]  += other.Arr[8];
-    Arr[9]  += other.Arr[9];
-    Arr[10] += other.Arr[10];
-    Arr[11] += other.Arr[11];
-    Arr[12] += other.Arr[12];
-    Arr[13] += other.Arr[13];
-    Arr[14] += other.Arr[14];
-    Arr[15] += other.Arr[15];
+    arr[0]  += other.arr[0];
+    arr[1]  += other.arr[1];
+    arr[2]  += other.arr[2];
+    arr[3]  += other.arr[3];
+    arr[4]  += other.arr[4];
+    arr[5]  += other.arr[5];
+    arr[6]  += other.arr[6];
+    arr[7]  += other.arr[7];
+    arr[8]  += other.arr[8];
+    arr[9]  += other.arr[9];
+    arr[10] += other.arr[10];
+    arr[11] += other.arr[11];
+    arr[12] += other.arr[12];
+    arr[13] += other.arr[13];
+    arr[14] += other.arr[14];
+    arr[15] += other.arr[15];
 
     return *this;
 }
@@ -84,32 +84,32 @@ template<typename T>
 constexpr Matrix4<T> Matrix4<T>::operator-(const Matrix4<T>& other) const
 {
     return Matrix4(
-        Arr[0]  - other.Arr[0],  Arr[1]  - other.Arr[1],  Arr[2]  - other.Arr[2],  Arr[3]  - other.Arr[3],
-        Arr[4]  - other.Arr[4],  Arr[5]  - other.Arr[5],  Arr[6]  - other.Arr[6],  Arr[7]  - other.Arr[7],
-        Arr[8]  - other.Arr[8],  Arr[9]  - other.Arr[9],  Arr[10] - other.Arr[10], Arr[11] - other.Arr[11],
-        Arr[12] - other.Arr[12], Arr[13] - other.Arr[13], Arr[14] - other.Arr[14], Arr[15] - other.Arr[15]
+        arr[0]  - other.arr[0],  arr[1]  - other.arr[1],  arr[2]  - other.arr[2],  arr[3]  - other.arr[3],
+        arr[4]  - other.arr[4],  arr[5]  - other.arr[5],  arr[6]  - other.arr[6],  arr[7]  - other.arr[7],
+        arr[8]  - other.arr[8],  arr[9]  - other.arr[9],  arr[10] - other.arr[10], arr[11] - other.arr[11],
+        arr[12] - other.arr[12], arr[13] - other.arr[13], arr[14] - other.arr[14], arr[15] - other.arr[15]
     );
 }
 
 template<typename T>
 constexpr Matrix4<T>& Matrix4<T>::operator-=(const Matrix4<T>& other)
 {
-    Arr[0]  -= other.Arr[0];
-    Arr[1]  -= other.Arr[1];
-    Arr[2]  -= other.Arr[2];
-    Arr[3]  -= other.Arr[3];
-    Arr[4]  -= other.Arr[4];
-    Arr[5]  -= other.Arr[5];
-    Arr[6]  -= other.Arr[6];
-    Arr[7]  -= other.Arr[7];
-    Arr[8]  -= other.Arr[8];
-    Arr[9]  -= other.Arr[9];
-    Arr[10] -= other.Arr[10];
-    Arr[11] -= other.Arr[11];
-    Arr[12] -= other.Arr[12];
-    Arr[13] -= other.Arr[13];
-    Arr[14] -= other.Arr[14];
-    Arr[15] -= other.Arr[15];
+    arr[0]  -= other.arr[0];
+    arr[1]  -= other.arr[1];
+    arr[2]  -= other.arr[2];
+    arr[3]  -= other.arr[3];
+    arr[4]  -= other.arr[4];
+    arr[5]  -= other.arr[5];
+    arr[6]  -= other.arr[6];
+    arr[7]  -= other.arr[7];
+    arr[8]  -= other.arr[8];
+    arr[9]  -= other.arr[9];
+    arr[10] -= other.arr[10];
+    arr[11] -= other.arr[11];
+    arr[12] -= other.arr[12];
+    arr[13] -= other.arr[13];
+    arr[14] -= other.arr[14];
+    arr[15] -= other.arr[15];
 
     return *this;
 }
@@ -118,32 +118,32 @@ template<typename T>
 constexpr Matrix4<T> Matrix4<T>::operator*(const T value) const
 {
     return Matrix4(
-        Arr[0]  * value, Arr[1]  * value, Arr[2]  * value, Arr[3]  * value,
-        Arr[4]  * value, Arr[5]  * value, Arr[6]  * value, Arr[7]  * value,
-        Arr[8]  * value, Arr[9]  * value, Arr[10] * value, Arr[11] * value,
-        Arr[12] * value, Arr[13] * value, Arr[14] * value, Arr[15] * value
+        arr[0]  * value, arr[1]  * value, arr[2]  * value, arr[3]  * value,
+        arr[4]  * value, arr[5]  * value, arr[6]  * value, arr[7]  * value,
+        arr[8]  * value, arr[9]  * value, arr[10] * value, arr[11] * value,
+        arr[12] * value, arr[13] * value, arr[14] * value, arr[15] * value
     );
 }
 
 template<typename T>
 constexpr Matrix4<T>& Matrix4<T>::operator*=(const T value)
 {
-    Arr[0]  *= value;
-    Arr[1]  *= value;
-    Arr[2]  *= value;
-    Arr[3]  *= value;
-    Arr[4]  *= value;
-    Arr[5]  *= value;
-    Arr[6]  *= value;
-    Arr[7]  *= value;
-    Arr[8]  *= value;
-    Arr[9]  *= value;
-    Arr[10] *= value;
-    Arr[11] *= value;
-    Arr[12] *= value;
-    Arr[13] *= value;
-    Arr[14] *= value;
-    Arr[15] *= value;
+    arr[0]  *= value;
+    arr[1]  *= value;
+    arr[2]  *= value;
+    arr[3]  *= value;
+    arr[4]  *= value;
+    arr[5]  *= value;
+    arr[6]  *= value;
+    arr[7]  *= value;
+    arr[8]  *= value;
+    arr[9]  *= value;
+    arr[10] *= value;
+    arr[11] *= value;
+    arr[12] *= value;
+    arr[13] *= value;
+    arr[14] *= value;
+    arr[15] *= value;
 
     return *this;
 }
@@ -152,10 +152,10 @@ template<typename T>
 constexpr Vector4<T> Matrix4<T>::operator*(const Vector4<T>& v) const
 {
     return Vector4(
-        Arr[0] * v.X + Arr[4] * v.Y + Arr[8]  * v.Z + Arr[12] * v.W,
-        Arr[1] * v.X + Arr[5] * v.Y + Arr[9]  * v.Z + Arr[13] * v.W,
-        Arr[2] * v.X + Arr[6] * v.Y + Arr[10] * v.Z + Arr[14] * v.W,
-        Arr[3] * v.X + Arr[7] * v.Y + Arr[11] * v.Z + Arr[15] * v.W
+        arr[0] * v.x + arr[4] * v.y + arr[8]  * v.z + arr[12] * v.w,
+        arr[1] * v.x + arr[5] * v.y + arr[9]  * v.z + arr[13] * v.w,
+        arr[2] * v.x + arr[6] * v.y + arr[10] * v.z + arr[14] * v.w,
+        arr[3] * v.x + arr[7] * v.y + arr[11] * v.z + arr[15] * v.w
     );
 }
 
@@ -164,22 +164,22 @@ template<typename T>
 constexpr Matrix4<T> Matrix4<T>::operator*(const Matrix4<T>& other) const
 {
     return Matrix4(
-        Arr[0] * other.Arr[0]  + Arr[4] * other.Arr[1]  + Arr[8]  * other.Arr[2]  + Arr[12] * other.Arr[3],
-        Arr[1] * other.Arr[0]  + Arr[5] * other.Arr[1]  + Arr[9]  * other.Arr[2]  + Arr[13] * other.Arr[3],
-        Arr[2] * other.Arr[0]  + Arr[6] * other.Arr[1]  + Arr[10] * other.Arr[2]  + Arr[14] * other.Arr[3],
-        Arr[3] * other.Arr[0]  + Arr[7] * other.Arr[1]  + Arr[11] * other.Arr[2]  + Arr[15] * other.Arr[3],
-        Arr[0] * other.Arr[4]  + Arr[4] * other.Arr[5]  + Arr[8]  * other.Arr[6]  + Arr[12] * other.Arr[7],
-        Arr[1] * other.Arr[4]  + Arr[5] * other.Arr[5]  + Arr[9]  * other.Arr[6]  + Arr[13] * other.Arr[7],
-        Arr[2] * other.Arr[4]  + Arr[6] * other.Arr[5]  + Arr[10] * other.Arr[6]  + Arr[14] * other.Arr[7],
-        Arr[3] * other.Arr[4]  + Arr[7] * other.Arr[5]  + Arr[11] * other.Arr[6]  + Arr[15] * other.Arr[7],
-        Arr[0] * other.Arr[8]  + Arr[4] * other.Arr[9]  + Arr[8]  * other.Arr[10] + Arr[12] * other.Arr[11],
-        Arr[1] * other.Arr[8]  + Arr[5] * other.Arr[9]  + Arr[9]  * other.Arr[10] + Arr[13] * other.Arr[11],
-        Arr[2] * other.Arr[8]  + Arr[6] * other.Arr[9]  + Arr[10] * other.Arr[10] + Arr[14] * other.Arr[11],
-        Arr[3] * other.Arr[8]  + Arr[7] * other.Arr[9]  + Arr[11] * other.Arr[10] + Arr[15] * other.Arr[11],
-        Arr[0] * other.Arr[12] + Arr[4] * other.Arr[13] + Arr[8]  * other.Arr[14] + Arr[12] * other.Arr[15],
-        Arr[1] * other.Arr[12] + Arr[5] * other.Arr[13] + Arr[9]  * other.Arr[14] + Arr[13] * other.Arr[15],
-        Arr[2] * other.Arr[12] + Arr[6] * other.Arr[13] + Arr[10] * other.Arr[14] + Arr[14] * other.Arr[15],
-        Arr[3] * other.Arr[12] + Arr[7] * other.Arr[13] + Arr[11] * other.Arr[14] + Arr[15] * other.Arr[15]
+        arr[0] * other.arr[0]  + arr[4] * other.arr[1]  + arr[8]  * other.arr[2]  + arr[12] * other.arr[3],
+        arr[1] * other.arr[0]  + arr[5] * other.arr[1]  + arr[9]  * other.arr[2]  + arr[13] * other.arr[3],
+        arr[2] * other.arr[0]  + arr[6] * other.arr[1]  + arr[10] * other.arr[2]  + arr[14] * other.arr[3],
+        arr[3] * other.arr[0]  + arr[7] * other.arr[1]  + arr[11] * other.arr[2]  + arr[15] * other.arr[3],
+        arr[0] * other.arr[4]  + arr[4] * other.arr[5]  + arr[8]  * other.arr[6]  + arr[12] * other.arr[7],
+        arr[1] * other.arr[4]  + arr[5] * other.arr[5]  + arr[9]  * other.arr[6]  + arr[13] * other.arr[7],
+        arr[2] * other.arr[4]  + arr[6] * other.arr[5]  + arr[10] * other.arr[6]  + arr[14] * other.arr[7],
+        arr[3] * other.arr[4]  + arr[7] * other.arr[5]  + arr[11] * other.arr[6]  + arr[15] * other.arr[7],
+        arr[0] * other.arr[8]  + arr[4] * other.arr[9]  + arr[8]  * other.arr[10] + arr[12] * other.arr[11],
+        arr[1] * other.arr[8]  + arr[5] * other.arr[9]  + arr[9]  * other.arr[10] + arr[13] * other.arr[11],
+        arr[2] * other.arr[8]  + arr[6] * other.arr[9]  + arr[10] * other.arr[10] + arr[14] * other.arr[11],
+        arr[3] * other.arr[8]  + arr[7] * other.arr[9]  + arr[11] * other.arr[10] + arr[15] * other.arr[11],
+        arr[0] * other.arr[12] + arr[4] * other.arr[13] + arr[8]  * other.arr[14] + arr[12] * other.arr[15],
+        arr[1] * other.arr[12] + arr[5] * other.arr[13] + arr[9]  * other.arr[14] + arr[13] * other.arr[15],
+        arr[2] * other.arr[12] + arr[6] * other.arr[13] + arr[10] * other.arr[14] + arr[14] * other.arr[15],
+        arr[3] * other.arr[12] + arr[7] * other.arr[13] + arr[11] * other.arr[14] + arr[15] * other.arr[15]
     );
 }
 
@@ -187,48 +187,48 @@ template<typename T>
 constexpr Matrix4<T>& Matrix4<T>::operator*=(const Matrix4<T>& other)
 {
     //Row 1
-    T val1 = Arr[0] * other.Arr[0]  + Arr[4] * other.Arr[1]  + Arr[8] * other.Arr[2]  + Arr[12] * other.Arr[3];
-    T val2 = Arr[0] * other.Arr[4]  + Arr[4] * other.Arr[5]  + Arr[8] * other.Arr[6]  + Arr[12] * other.Arr[7];
-    T val3 = Arr[0] * other.Arr[8]  + Arr[4] * other.Arr[9]  + Arr[8] * other.Arr[10] + Arr[12] * other.Arr[11];
-    T val4 = Arr[0] * other.Arr[12] + Arr[4] * other.Arr[13] + Arr[8] * other.Arr[14] + Arr[12] * other.Arr[15];
+    T val1 = arr[0] * other.arr[0]  + arr[4] * other.arr[1]  + arr[8] * other.arr[2]  + arr[12] * other.arr[3];
+    T val2 = arr[0] * other.arr[4]  + arr[4] * other.arr[5]  + arr[8] * other.arr[6]  + arr[12] * other.arr[7];
+    T val3 = arr[0] * other.arr[8]  + arr[4] * other.arr[9]  + arr[8] * other.arr[10] + arr[12] * other.arr[11];
+    T val4 = arr[0] * other.arr[12] + arr[4] * other.arr[13] + arr[8] * other.arr[14] + arr[12] * other.arr[15];
 
-    Arr[0]  = val1;
-    Arr[4]  = val2;
-    Arr[8]  = val3;
-    Arr[12] = val4;
+    arr[0]  = val1;
+    arr[4]  = val2;
+    arr[8]  = val3;
+    arr[12] = val4;
 
     //Row 2
-    val1 = Arr[1] * other.Arr[0]  + Arr[5] * other.Arr[1]  + Arr[9] * other.Arr[2]  + Arr[13] * other.Arr[3];
-    val2 = Arr[1] * other.Arr[4]  + Arr[5] * other.Arr[5]  + Arr[9] * other.Arr[6]  + Arr[13] * other.Arr[7];
-    val3 = Arr[1] * other.Arr[8]  + Arr[5] * other.Arr[9]  + Arr[9] * other.Arr[10] + Arr[13] * other.Arr[11];
-    val4 = Arr[1] * other.Arr[12] + Arr[5] * other.Arr[13] + Arr[9] * other.Arr[14] + Arr[13] * other.Arr[15];
+    val1 = arr[1] * other.arr[0]  + arr[5] * other.arr[1]  + arr[9] * other.arr[2]  + arr[13] * other.arr[3];
+    val2 = arr[1] * other.arr[4]  + arr[5] * other.arr[5]  + arr[9] * other.arr[6]  + arr[13] * other.arr[7];
+    val3 = arr[1] * other.arr[8]  + arr[5] * other.arr[9]  + arr[9] * other.arr[10] + arr[13] * other.arr[11];
+    val4 = arr[1] * other.arr[12] + arr[5] * other.arr[13] + arr[9] * other.arr[14] + arr[13] * other.arr[15];
 
-    Arr[1]  = val1;
-    Arr[5]  = val2;
-    Arr[9]  = val3;
-    Arr[13] = val4;
+    arr[1]  = val1;
+    arr[5]  = val2;
+    arr[9]  = val3;
+    arr[13] = val4;
 
     //Row 3
-    val1 = Arr[2] * other.Arr[0]  + Arr[6] * other.Arr[1]  + Arr[10] * other.Arr[2]  + Arr[14] * other.Arr[3];
-    val2 = Arr[2] * other.Arr[4]  + Arr[6] * other.Arr[5]  + Arr[10] * other.Arr[6]  + Arr[14] * other.Arr[7];
-    val3 = Arr[2] * other.Arr[8]  + Arr[6] * other.Arr[9]  + Arr[10] * other.Arr[10] + Arr[14] * other.Arr[11];
-    val4 = Arr[2] * other.Arr[12] + Arr[6] * other.Arr[13] + Arr[10] * other.Arr[14] + Arr[14] * other.Arr[15];
+    val1 = arr[2] * other.arr[0]  + arr[6] * other.arr[1]  + arr[10] * other.arr[2]  + arr[14] * other.arr[3];
+    val2 = arr[2] * other.arr[4]  + arr[6] * other.arr[5]  + arr[10] * other.arr[6]  + arr[14] * other.arr[7];
+    val3 = arr[2] * other.arr[8]  + arr[6] * other.arr[9]  + arr[10] * other.arr[10] + arr[14] * other.arr[11];
+    val4 = arr[2] * other.arr[12] + arr[6] * other.arr[13] + arr[10] * other.arr[14] + arr[14] * other.arr[15];
 
-    Arr[2]  = val1;
-    Arr[6]  = val2;
-    Arr[10] = val3;
-    Arr[14] = val4;
+    arr[2]  = val1;
+    arr[6]  = val2;
+    arr[10] = val3;
+    arr[14] = val4;
 
     //Row 1
-    val1 = Arr[3] * other.Arr[0]  + Arr[7] * other.Arr[1]  + Arr[11] * other.Arr[2]  + Arr[15] * other.Arr[3];
-    val2 = Arr[3] * other.Arr[4]  + Arr[7] * other.Arr[5]  + Arr[11] * other.Arr[6]  + Arr[15] * other.Arr[7];
-    val3 = Arr[3] * other.Arr[8]  + Arr[7] * other.Arr[9]  + Arr[11] * other.Arr[10] + Arr[15] * other.Arr[11];
-    val4 = Arr[3] * other.Arr[12] + Arr[7] * other.Arr[13] + Arr[11] * other.Arr[14] + Arr[15] * other.Arr[15];
+    val1 = arr[3] * other.arr[0]  + arr[7] * other.arr[1]  + arr[11] * other.arr[2]  + arr[15] * other.arr[3];
+    val2 = arr[3] * other.arr[4]  + arr[7] * other.arr[5]  + arr[11] * other.arr[6]  + arr[15] * other.arr[7];
+    val3 = arr[3] * other.arr[8]  + arr[7] * other.arr[9]  + arr[11] * other.arr[10] + arr[15] * other.arr[11];
+    val4 = arr[3] * other.arr[12] + arr[7] * other.arr[13] + arr[11] * other.arr[14] + arr[15] * other.arr[15];
 
-    Arr[3]  = val1;
-    Arr[7]  = val2;
-    Arr[11] = val3;
-    Arr[15] = val4;
+    arr[3]  = val1;
+    arr[7]  = val2;
+    arr[11] = val3;
+    arr[15] = val4;
 
     return *this;
 }
@@ -237,32 +237,32 @@ template<typename T>
 constexpr Matrix4<T> Matrix4<T>::operator/(const T value) const
 {
     return Matrix4(
-        Arr[0]  / value, Arr[1]  / value, Arr[2]  / value, Arr[3]  / value,
-        Arr[4]  / value, Arr[5]  / value, Arr[6]  / value, Arr[7]  / value,
-        Arr[8]  / value, Arr[9]  / value, Arr[10] / value, Arr[11] / value,
-        Arr[12] / value, Arr[13] / value, Arr[14] / value, Arr[15] / value
+        arr[0]  / value, arr[1]  / value, arr[2]  / value, arr[3]  / value,
+        arr[4]  / value, arr[5]  / value, arr[6]  / value, arr[7]  / value,
+        arr[8]  / value, arr[9]  / value, arr[10] / value, arr[11] / value,
+        arr[12] / value, arr[13] / value, arr[14] / value, arr[15] / value
     );
 }
 
 template<typename T>
 constexpr Matrix4<T>& Matrix4<T>::operator/=(const T value)
 {
-    Arr[0]  /= value;
-    Arr[1]  /= value;
-    Arr[2]  /= value;
-    Arr[3]  /= value;
-    Arr[4]  /= value;
-    Arr[5]  /= value;
-    Arr[6]  /= value;
-    Arr[7]  /= value;
-    Arr[8]  /= value;
-    Arr[9]  /= value;
-    Arr[10] /= value;
-    Arr[11] /= value;
-    Arr[12] /= value;
-    Arr[13] /= value;
-    Arr[14] /= value;
-    Arr[15] /= value;
+    arr[0]  /= value;
+    arr[1]  /= value;
+    arr[2]  /= value;
+    arr[3]  /= value;
+    arr[4]  /= value;
+    arr[5]  /= value;
+    arr[6]  /= value;
+    arr[7]  /= value;
+    arr[8]  /= value;
+    arr[9]  /= value;
+    arr[10] /= value;
+    arr[11] /= value;
+    arr[12] /= value;
+    arr[13] /= value;
+    arr[14] /= value;
+    arr[15] /= value;
 
     return *this;
 }
@@ -270,43 +270,43 @@ constexpr Matrix4<T>& Matrix4<T>::operator/=(const T value)
 template<typename T>
 constexpr bool Matrix4<T>::operator==(const Matrix4<T>& other) const
 {
-    return Arr[0]  == other.Arr[0]  && 
-           Arr[1]  == other.Arr[1]  && 
-           Arr[2]  == other.Arr[2]  &&
-           Arr[3]  == other.Arr[3]  &&
-           Arr[4]  == other.Arr[4]  &&
-           Arr[5]  == other.Arr[5]  &&
-           Arr[6]  == other.Arr[6]  &&
-           Arr[7]  == other.Arr[7]  &&
-           Arr[8]  == other.Arr[8]  &&
-           Arr[9]  == other.Arr[9]  &&
-           Arr[10] == other.Arr[10] &&
-           Arr[11] == other.Arr[11] &&
-           Arr[12] == other.Arr[12] &&
-           Arr[13] == other.Arr[13] &&
-           Arr[14] == other.Arr[14] &&
-           Arr[15] == other.Arr[15];
+    return arr[0]  == other.arr[0]  && 
+           arr[1]  == other.arr[1]  && 
+           arr[2]  == other.arr[2]  &&
+           arr[3]  == other.arr[3]  &&
+           arr[4]  == other.arr[4]  &&
+           arr[5]  == other.arr[5]  &&
+           arr[6]  == other.arr[6]  &&
+           arr[7]  == other.arr[7]  &&
+           arr[8]  == other.arr[8]  &&
+           arr[9]  == other.arr[9]  &&
+           arr[10] == other.arr[10] &&
+           arr[11] == other.arr[11] &&
+           arr[12] == other.arr[12] &&
+           arr[13] == other.arr[13] &&
+           arr[14] == other.arr[14] &&
+           arr[15] == other.arr[15];
 }
 
 template<typename T>
 constexpr bool Matrix4<T>::operator!=(const Matrix4<T>& other) const
 {
-    return Arr[0]  != other.Arr[0]  || 
-           Arr[1]  != other.Arr[1]  || 
-           Arr[2]  != other.Arr[2]  ||
-           Arr[3]  != other.Arr[3]  ||
-           Arr[4]  != other.Arr[4]  ||
-           Arr[5]  != other.Arr[5]  ||
-           Arr[6]  != other.Arr[6]  ||
-           Arr[7]  != other.Arr[7]  ||
-           Arr[8]  != other.Arr[8]  ||
-           Arr[9]  != other.Arr[9]  ||
-           Arr[10] != other.Arr[10] ||
-           Arr[11] != other.Arr[11] ||
-           Arr[12] != other.Arr[12] ||
-           Arr[13] != other.Arr[13] ||
-           Arr[14] != other.Arr[14] ||
-           Arr[15] != other.Arr[15];
+    return arr[0]  != other.arr[0]  || 
+           arr[1]  != other.arr[1]  || 
+           arr[2]  != other.arr[2]  ||
+           arr[3]  != other.arr[3]  ||
+           arr[4]  != other.arr[4]  ||
+           arr[5]  != other.arr[5]  ||
+           arr[6]  != other.arr[6]  ||
+           arr[7]  != other.arr[7]  ||
+           arr[8]  != other.arr[8]  ||
+           arr[9]  != other.arr[9]  ||
+           arr[10] != other.arr[10] ||
+           arr[11] != other.arr[11] ||
+           arr[12] != other.arr[12] ||
+           arr[13] != other.arr[13] ||
+           arr[14] != other.arr[14] ||
+           arr[15] != other.arr[15];
 }
 
 //! Operations
@@ -314,19 +314,19 @@ constexpr bool Matrix4<T>::operator!=(const Matrix4<T>& other) const
 template<typename T>
 constexpr T Matrix4<T>::Determinant() const
 {
-    T b12 = Arr[0] * Arr[5]  - Arr[1] * Arr[4];
-    T b13 = Arr[0] * Arr[9]  - Arr[1] * Arr[8];
-    T b14 = Arr[0] * Arr[13] - Arr[1] * Arr[12];
-    T b23 = Arr[4] * Arr[9]  - Arr[5] * Arr[8];
-    T b24 = Arr[4] * Arr[13] - Arr[5] * Arr[12];
-    T b34 = Arr[8] * Arr[13] - Arr[9] * Arr[12];
+    T b12 = arr[0] * arr[5]  - arr[1] * arr[4];
+    T b13 = arr[0] * arr[9]  - arr[1] * arr[8];
+    T b14 = arr[0] * arr[13] - arr[1] * arr[12];
+    T b23 = arr[4] * arr[9]  - arr[5] * arr[8];
+    T b24 = arr[4] * arr[13] - arr[5] * arr[12];
+    T b34 = arr[8] * arr[13] - arr[9] * arr[12];
 
-    T c12 = Arr[2]  * Arr[7]  - Arr[3]  * Arr[6];
-    T c13 = Arr[2]  * Arr[11] - Arr[3]  * Arr[10];
-    T c14 = Arr[2]  * Arr[15] - Arr[3]  * Arr[14];
-    T c23 = Arr[6]  * Arr[11] - Arr[7]  * Arr[10];
-    T c24 = Arr[6]  * Arr[15] - Arr[7]  * Arr[14];
-    T c34 = Arr[10] * Arr[15] - Arr[11] * Arr[14];
+    T c12 = arr[2]  * arr[7]  - arr[3]  * arr[6];
+    T c13 = arr[2]  * arr[11] - arr[3]  * arr[10];
+    T c14 = arr[2]  * arr[15] - arr[3]  * arr[14];
+    T c23 = arr[6]  * arr[11] - arr[7]  * arr[10];
+    T c24 = arr[6]  * arr[15] - arr[7]  * arr[14];
+    T c34 = arr[10] * arr[15] - arr[11] * arr[14];
 
     return b12 * c34 - b13 * c24 + b14 * c23 + b23 * c14 - b24 * c13 + b34 * c12;
 }
@@ -335,41 +335,41 @@ constexpr T Matrix4<T>::Determinant() const
 template<typename T>
 constexpr Matrix4<T> Matrix4<T>::GetInverse() const
 {
-    T b12 = Arr[0] * Arr[5]  - Arr[1] * Arr[4];
-    T b13 = Arr[0] * Arr[9]  - Arr[1] * Arr[8];
-    T b14 = Arr[0] * Arr[13] - Arr[1] * Arr[12];
-    T b23 = Arr[4] * Arr[9]  - Arr[5] * Arr[8];
-    T b24 = Arr[4] * Arr[13] - Arr[5] * Arr[12];
-    T b34 = Arr[8] * Arr[13] - Arr[9] * Arr[12];
+    T b12 = arr[0] * arr[5]  - arr[1] * arr[4];
+    T b13 = arr[0] * arr[9]  - arr[1] * arr[8];
+    T b14 = arr[0] * arr[13] - arr[1] * arr[12];
+    T b23 = arr[4] * arr[9]  - arr[5] * arr[8];
+    T b24 = arr[4] * arr[13] - arr[5] * arr[12];
+    T b34 = arr[8] * arr[13] - arr[9] * arr[12];
 
-    T c12 = Arr[2]  * Arr[7]  - Arr[3]  * Arr[6];
-    T c13 = Arr[2]  * Arr[11] - Arr[3]  * Arr[10];
-    T c14 = Arr[2]  * Arr[15] - Arr[3]  * Arr[14];
-    T c23 = Arr[6]  * Arr[11] - Arr[7]  * Arr[10];
-    T c24 = Arr[6]  * Arr[15] - Arr[7]  * Arr[14];
-    T c34 = Arr[10] * Arr[15] - Arr[11] * Arr[14];
+    T c12 = arr[2]  * arr[7]  - arr[3]  * arr[6];
+    T c13 = arr[2]  * arr[11] - arr[3]  * arr[10];
+    T c14 = arr[2]  * arr[15] - arr[3]  * arr[14];
+    T c23 = arr[6]  * arr[11] - arr[7]  * arr[10];
+    T c24 = arr[6]  * arr[15] - arr[7]  * arr[14];
+    T c34 = arr[10] * arr[15] - arr[11] * arr[14];
 
     T det    = b12 * c34 - b13 * c24 + b14 * c23 + b23 * c14 - b24 * c13 + b34 * c12;
     T invDet = 1.0 / det; 
         
     //Store the cofactors transposed
     return Matrix4(
-         (Arr[5] * c34 - Arr[9] * c24 + Arr[13] * c23) * invDet,
-        -(Arr[1] * c34 - Arr[9] * c14 + Arr[13] * c13) * invDet,
-         (Arr[1] * c24 - Arr[5] * c14 + Arr[13] * c12) * invDet,
-        -(Arr[1] * c23 - Arr[5] * c13 + Arr[9] * c12) * invDet,
-        -(Arr[4] * c34 - Arr[8] * c24 + Arr[12] * c23) * invDet,
-         (Arr[0] * c34 - Arr[8] * c14 + Arr[12] * c13) * invDet,
-        -(Arr[0] * c24 - Arr[4] * c14 + Arr[12] * c12) * invDet,
-         (Arr[0] * c23 - Arr[4] * c13 + Arr[8] * c12) * invDet,
-         (Arr[7] * b34 - Arr[11] * b24 + Arr[15] * b23) * invDet,
-        -(Arr[3] * b34 - Arr[11] * b14 + Arr[15] * b13) * invDet,
-         (Arr[3] * b24 - Arr[7] * b14 + Arr[15] * b12) * invDet,
-        -(Arr[3] * b23 - Arr[7] * b13 + Arr[11] * b12) * invDet,
-        -(Arr[6] * b34 - Arr[10] * b24 + Arr[14] * b23) * invDet,
-         (Arr[2] * b34 - Arr[10] * b14 + Arr[14] * b13) * invDet,
-        -(Arr[2] * b24 - Arr[6] * b14 + Arr[14] * b12) * invDet,
-         (Arr[2] * b23 - Arr[6] * b13 + Arr[10] * b12) * invDet
+         (arr[5] * c34 - arr[9] * c24 + arr[13] * c23) * invDet,
+        -(arr[1] * c34 - arr[9] * c14 + arr[13] * c13) * invDet,
+         (arr[1] * c24 - arr[5] * c14 + arr[13] * c12) * invDet,
+        -(arr[1] * c23 - arr[5] * c13 + arr[9] * c12) * invDet,
+        -(arr[4] * c34 - arr[8] * c24 + arr[12] * c23) * invDet,
+         (arr[0] * c34 - arr[8] * c14 + arr[12] * c13) * invDet,
+        -(arr[0] * c24 - arr[4] * c14 + arr[12] * c12) * invDet,
+         (arr[0] * c23 - arr[4] * c13 + arr[8] * c12) * invDet,
+         (arr[7] * b34 - arr[11] * b24 + arr[15] * b23) * invDet,
+        -(arr[3] * b34 - arr[11] * b14 + arr[15] * b13) * invDet,
+         (arr[3] * b24 - arr[7] * b14 + arr[15] * b12) * invDet,
+        -(arr[3] * b23 - arr[7] * b13 + arr[11] * b12) * invDet,
+        -(arr[6] * b34 - arr[10] * b24 + arr[14] * b23) * invDet,
+         (arr[2] * b34 - arr[10] * b14 + arr[14] * b13) * invDet,
+        -(arr[2] * b24 - arr[6] * b14 + arr[14] * b12) * invDet,
+         (arr[2] * b23 - arr[6] * b13 + arr[10] * b12) * invDet
     );
 }
 
@@ -377,46 +377,45 @@ template<typename T>
 constexpr Matrix4<T> Matrix4<T>::GetTranspose() const
 {
     return Matrix4(
-        Arr[0],
-        Arr[4],
-        Arr[8],
-        Arr[12],
-        Arr[1],
-        Arr[5],
-        Arr[9],
-        Arr[13],
-        Arr[2],
-        Arr[6],
-        Arr[10],
-        Arr[14],
-        Arr[3],
-        Arr[7],
-        Arr[11],
-        Arr[15]
+        arr[0],
+        arr[4],
+        arr[8],
+        arr[12],
+        arr[1],
+        arr[5],
+        arr[9],
+        arr[13],
+        arr[2],
+        arr[6],
+        arr[10],
+        arr[14],
+        arr[3],
+        arr[7],
+        arr[11],
+        arr[15]
     );
 }
 
-//TODO:###############
 template<typename T>
 constexpr Matrix4<T> Matrix4<T>::GetScaled(const Vector3<T>& scale) const
 {
     return Matrix4(
-        Arr[0]  * scale.X,
-        Arr[1]  * scale.X,
-        Arr[2]  * scale.X,
-        Arr[3]  * scale.X,
-        Arr[4]  * scale.Y,
-        Arr[5]  * scale.Y,
-        Arr[6]  * scale.Y,
-        Arr[7]  * scale.Y,
-        Arr[8]  * scale.Z,
-        Arr[9]  * scale.Z,
-        Arr[10] * scale.Z,
-        Arr[11] * scale.Z,
-        Arr[12],
-        Arr[13],
-        Arr[14],
-        Arr[15]
+        arr[0]  * scale.x,
+        arr[1]  * scale.x,
+        arr[2]  * scale.x,
+        arr[3]  * scale.x,
+        arr[4]  * scale.y,
+        arr[5]  * scale.y,
+        arr[6]  * scale.y,
+        arr[7]  * scale.y,
+        arr[8]  * scale.z,
+        arr[9]  * scale.z,
+        arr[10] * scale.z,
+        arr[11] * scale.z,
+        arr[12],
+        arr[13],
+        arr[14],
+        arr[15]
     );
 }
 
@@ -427,22 +426,22 @@ constexpr Matrix4<T> Matrix4<T>::GetRotatedX(T radians) const
     T sin = std::sin(radians);
 
     return Matrix4(
-        Arr[0],
-        Arr[1],
-        Arr[2],
-        Arr[3],
-        Arr[4] *  cos + Arr[8]  * sin,
-        Arr[5] *  cos + Arr[9]  * sin,
-        Arr[6] *  cos + Arr[10] * cos,
-        Arr[7] *  cos + Arr[11] * cos,
-        Arr[4] * -sin + Arr[8]  * cos,
-        Arr[5] * -sin + Arr[9]  * cos,
-        Arr[6] * -sin + Arr[10] * cos,
-        Arr[7] * -sin + Arr[11] * cos,
-        Arr[12],
-        Arr[13],
-        Arr[14],
-        Arr[15]
+        arr[0],
+        arr[1],
+        arr[2],
+        arr[3],
+        arr[4] *  cos + arr[8]  * sin,
+        arr[5] *  cos + arr[9]  * sin,
+        arr[6] *  cos + arr[10] * cos,
+        arr[7] *  cos + arr[11] * cos,
+        arr[4] * -sin + arr[8]  * cos,
+        arr[5] * -sin + arr[9]  * cos,
+        arr[6] * -sin + arr[10] * cos,
+        arr[7] * -sin + arr[11] * cos,
+        arr[12],
+        arr[13],
+        arr[14],
+        arr[15]
     );
 }
 
@@ -453,22 +452,22 @@ constexpr Matrix4<T> Matrix4<T>::GetRotatedY(T radians) const
     T sin = std::sin(radians);
 
     return Matrix4(
-        Arr[0] * cos - Arr[8]  * sin,
-        Arr[1] * cos - Arr[9]  * sin,
-        Arr[2] * cos - Arr[10] * sin,
-        Arr[3] * cos - Arr[11] * sin,
-        Arr[4],
-        Arr[5],
-        Arr[6],
-        Arr[7],
-        Arr[0] * sin + Arr[8]  * cos,
-        Arr[1] * sin + Arr[9]  * cos,
-        Arr[2] * sin + Arr[10] * cos,
-        Arr[3] * sin + Arr[11] * cos,
-        Arr[12],
-        Arr[13],
-        Arr[14],
-        Arr[15]
+        arr[0] * cos - arr[8]  * sin,
+        arr[1] * cos - arr[9]  * sin,
+        arr[2] * cos - arr[10] * sin,
+        arr[3] * cos - arr[11] * sin,
+        arr[4],
+        arr[5],
+        arr[6],
+        arr[7],
+        arr[0] * sin + arr[8]  * cos,
+        arr[1] * sin + arr[9]  * cos,
+        arr[2] * sin + arr[10] * cos,
+        arr[3] * sin + arr[11] * cos,
+        arr[12],
+        arr[13],
+        arr[14],
+        arr[15]
     );
 }
 
@@ -479,22 +478,22 @@ constexpr Matrix4<T> Matrix4<T>::GetRotatedZ(T radians) const
     T sin = std::sin(radians);
 
     return Matrix4(
-        Arr[0] *  cos + Arr[4] * sin,
-        Arr[1] *  cos + Arr[5] * sin,
-        Arr[2] *  cos + Arr[6] * sin,
-        Arr[3] *  cos + Arr[7] * sin,
-        Arr[0] * -sin + Arr[4] * cos,
-        Arr[1] * -sin + Arr[5] * cos,
-        Arr[2] * -sin + Arr[6] * cos,
-        Arr[3] * -sin + Arr[7] * cos,
-        Arr[8],
-        Arr[9],
-        Arr[10],
-        Arr[11],
-        Arr[12],
-        Arr[13],
-        Arr[14],
-        Arr[15]
+        arr[0] *  cos + arr[4] * sin,
+        arr[1] *  cos + arr[5] * sin,
+        arr[2] *  cos + arr[6] * sin,
+        arr[3] *  cos + arr[7] * sin,
+        arr[0] * -sin + arr[4] * cos,
+        arr[1] * -sin + arr[5] * cos,
+        arr[2] * -sin + arr[6] * cos,
+        arr[3] * -sin + arr[7] * cos,
+        arr[8],
+        arr[9],
+        arr[10],
+        arr[11],
+        arr[12],
+        arr[13],
+        arr[14],
+        arr[15]
     );
 }
 
@@ -502,22 +501,22 @@ template<typename T>
 constexpr Matrix4<T> Matrix4<T>::GetTranslated(const Vector3<T>& translation) const
 {
     return Matrix4(
-        Arr[0],
-        Arr[1],
-        Arr[2],
-        Arr[3],
-        Arr[4],
-        Arr[5],
-        Arr[6],
-        Arr[7],
-        Arr[8],
-        Arr[9],
-        Arr[10],
-        Arr[11],
-        Arr[0] * translation.X + Arr[4] * translation.Y + Arr[8]  * translation.Z + Arr[12],
-        Arr[1] * translation.X + Arr[5] * translation.Y + Arr[9]  * translation.Z + Arr[13],
-        Arr[2] * translation.X + Arr[6] * translation.Y + Arr[10] * translation.Z + Arr[14],
-        Arr[3] * translation.X + Arr[7] * translation.Y + Arr[11] * translation.Z + Arr[15]
+        arr[0],
+        arr[1],
+        arr[2],
+        arr[3],
+        arr[4],
+        arr[5],
+        arr[6],
+        arr[7],
+        arr[8],
+        arr[9],
+        arr[10],
+        arr[11],
+        arr[0] * translation.x + arr[4] * translation.y + arr[8]  * translation.z + arr[12],
+        arr[1] * translation.x + arr[5] * translation.y + arr[9]  * translation.z + arr[13],
+        arr[2] * translation.x + arr[6] * translation.y + arr[10] * translation.z + arr[14],
+        arr[3] * translation.x + arr[7] * translation.y + arr[11] * translation.z + arr[15]
     );
 }
 
@@ -525,9 +524,9 @@ template<typename T>
 constexpr Matrix4<T> Matrix4<T>::CreateScale(const Vector3<T>& scale)
 {
     return Matrix4(
-        scale.X, 0, 0, 0,
-        0, scale.Y, 0, 0,
-        0, 0, scale.Z, 0,
+        scale.x, 0, 0, 0,
+        0, scale.y, 0, 0,
+        0, 0, scale.z, 0,
         0, 0, 0, 1
     );
 }
@@ -581,7 +580,7 @@ constexpr Matrix4<T> Matrix4<T>::CreateTranslation(const Vector3<T>& translation
         1, 0, 0, 0,
         0, 1, 0, 0,
         0, 0, 1, 0,
-        translation.X, translation.Y, translation.Z, 1
+        translation.x, translation.y, translation.z, 1
     );
 }
 
@@ -595,4 +594,4 @@ constexpr Matrix4<T> Matrix4<T>::CreateTransform(const Vector3<T>& scale,
 }
 */
 
-} //namespace Math
+} //namespace math

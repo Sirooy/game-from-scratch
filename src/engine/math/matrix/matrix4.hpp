@@ -1,11 +1,11 @@
 #pragma once
 #include <cstdint>
 #include <cstddef>
-#include "../vector/vector3.hpp"
-#include "../vector/vector4.hpp"
+#include "../vector/Vector3.hpp"
+#include "../vector/Vector4.hpp"
 //#include "../quat/quaternion.hpp"
 
-namespace Math
+namespace math
 {
 
 //Column based 4x4 matrix
@@ -58,8 +58,9 @@ public:
     constexpr static Matrix4 CreateTranslation(const Vector3<T>& v);
     //constexpr static Matrix4 CreateTransform(const Vector3<T>& scale, 
     //    const Quaternion<T>& rotation, const Vector3<T>& translation);
-private:
-    T Arr[Size];
+
+public:
+    T arr[Size];
 };
 
 template struct Matrix4<float>;
@@ -68,6 +69,6 @@ template struct Matrix4<double>;
 using Mat4  = Matrix4<float>;
 using Mat4d = Matrix4<double>;
 
-} //namespace Math
+} //namespace math
 
-#include "matrix4.inl"
+#include "Matrix4.inl"

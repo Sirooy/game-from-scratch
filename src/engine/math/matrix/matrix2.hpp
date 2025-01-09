@@ -1,9 +1,9 @@
 #pragma once
 #include <cstdint>
 #include <cstddef>
-#include "../vector/vector2.hpp"
+#include "../vector/Vector2.hpp"
 
-namespace Math
+namespace math
 {
 
 //Column based 2x2 matrix
@@ -45,9 +45,10 @@ public:
     constexpr Matrix2        GetScaled(const Vector2<T> scale) const;
     constexpr Matrix2        GetRotated(T radians) const;
     constexpr static Matrix2 CreateScale(const Vector2<T> scale);
-    constexpr static Matrix2 CreateRotation(T radians);  
-private:
-    T Arr[Size];
+    constexpr static Matrix2 CreateRotation(T radians); 
+
+public:
+    T arr[Size];
 };
 
 template struct Matrix2<float>;
@@ -56,6 +57,6 @@ template struct Matrix2<double>;
 using Mat2  = Matrix2<float>;
 using Mat2d = Matrix2<double>;
 
-} //namespace Math
+} //namespace math
 
-#include "matrix2.inl"
+#include "Matrix2.inl"
