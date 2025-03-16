@@ -32,11 +32,11 @@ endef
 
 PLATFORM     := windows
 BUILD_CONFIG := debug
-APP_NAME     := game
+APP_NAME     := assetparser
 C_COMPILER   := gcc
 CC_COMPILER  := g++
-C_FLAGS      := -Wall -pedantic -std=gnu17 -DGLFW_INCLUDE_NONE
-CC_FLAGS     := -Wall -pedantic -std=c++23 -DGLFW_INCLUDE_NONE
+C_FLAGS      := -Wall -pedantic -std=gnu17 -DLITTLE_ENDIAN
+CC_FLAGS     := -Wall -pedantic -std=c++23 -DLITTLE_ENDIAN
 MKDIR	     := mkdir -p
 SRC          := src
 OBJ          := obj
@@ -53,7 +53,7 @@ ifeq ("$(PLATFORM)","windows")
     #Add 
 	C_FLAGS     += -DPLATFORM_WINDOWS
 	CC_FLAGS    += -DPLATFORM_WINDOWS
-	SYSTEM_LIBS := -lGdi32 -static
+	SYSTEM_LIBS := -static
     #Build config (debug/release)
 	ifeq ("$(BUILD_CONFIG)","debug")
         #Add debug information and the DEBUG define
@@ -63,8 +63,6 @@ ifeq ("$(PLATFORM)","windows")
         #Add optimizations
 		C_FLAGS  	 += -O3
 		CC_FLAGS 	 += -O3
-        #Removes the console when executing the .exe
-		LINKER_FLAGS := -mwindows
 	else
         $(error Invalid build config "$(BUILD_CONFIG)")
 	endif
