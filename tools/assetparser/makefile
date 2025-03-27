@@ -53,7 +53,7 @@ ifeq ("$(PLATFORM)","windows")
     #Add 
 	C_FLAGS     += -DPLATFORM_WINDOWS
 	CC_FLAGS    += -DPLATFORM_WINDOWS
-	SYSTEM_LIBS := -static
+	SYSTEM_LIBS := -lassimp
     #Build config (debug/release)
 	ifeq ("$(BUILD_CONFIG)","debug")
         #Add debug information and the DEBUG define
