@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
 {
     ArgumentParser args(argc, argv);
     AssetParserManager apm;
-    apm.RegisterParser<ImageParser>();
+    apm.RegisterParser<parser::ImageParser>();
 
     if(args.HasOption("-f") && args.GetOptionValueCount("-f") == 1)
     {

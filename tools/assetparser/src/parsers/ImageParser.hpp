@@ -15,6 +15,9 @@ uint8_t[] - [Width * Height * Num channels] Image bytes (R|RG|RGB|RGBA)
 */
 /* ##### ###### ##### */
 
+namespace parser
+{
+
 enum class ChannelIndex
 {
     R = 0,
@@ -89,3 +92,4 @@ protected:
     };
 };
 
+} //namespace parser

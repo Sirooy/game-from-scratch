@@ -2,6 +2,9 @@
 #include <string>
 #include <vector>
 
+namespace parser
+{
+
 class BaseParser
 {
 public:
@@ -11,3 +14,5 @@ public:
     virtual const std::vector<std::string>& GetInputExtensions() const = 0;
     virtual const std::string& GetOutputExtension() const = 0;
 };
+
+} //namespace parser

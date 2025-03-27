@@ -5,6 +5,9 @@
 #include "../BinaryWrite.hpp"
 #include "../thirdparty/stb_image/stb_image.h"
 
+namespace parser
+{
+
 void ImageParser::ParseFile(const std::string& inputFile, 
     const std::string& outputFile)
 {
@@ -134,3 +137,5 @@ ImageFormat ImageParser::GetStbiFormatFromChannels(int32_t numChannels)
 
     throw std::runtime_error("Invalid number of channels");
 }
+
+} //namespace parser

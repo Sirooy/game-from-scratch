@@ -19,7 +19,7 @@ public:
 
     void ParseFile(const std::filesystem::path& path) const;
 
-    template<typename T, typename... TParams> requires std::is_base_of_v<BaseParser, T>
+    template<typename T, typename... TParams> requires std::is_base_of_v<parser::BaseParser, T>
     void RegisterParser(TParams&&... params)
     {
         auto& parser           = parsers.emplace_back(std::make_unique<T>(std::forward<TParams>(params)...));
@@ -38,6 +38,6 @@ private:
     static std::string PathToString(const std::filesystem::path::string_type& str);
 
 private:
-    std::vector<std::unique_ptr<BaseParser>> parsers {};
-    std::unordered_map<std::string, BaseParser*> parsersMap {};
+    std::vector<std::unique_ptr<parser::BaseParser>> parsers {};
+    std::unordered_map<std::string, parser::BaseParser*> parsersMap {};
 };

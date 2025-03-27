@@ -14,7 +14,7 @@ void AssetParserManager::ParseFile(const std::filesystem::path& path) const
     auto find = parsersMap.find(extension);
     if(find != parsersMap.end())
     {
-        BaseParser* parser     = find->second;
+        parser::BaseParser* parser = find->second;
         outputFile = outputFile.replace(inputFile.rfind('.') + 1, 
             extension.length(), parser->GetOutputExtension());
         
