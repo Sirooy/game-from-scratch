@@ -1,4 +1,5 @@
 #include "AssetParserManager.hpp"
+#include "Color.hpp"
 #include <fstream>
 #include <nlohmann/json.hpp>
 
@@ -101,16 +102,20 @@ void AssetParserManager::CreateDirectories(const std::vector<std::filesystem::pa
     {
         try
         {
-            if(!fs::exists(directory) && fs::create_directories(directory))
-                std::cout << "Creating \"" << directory.string() << "\" directory." << '\n';
-            else
-                std::cout << "Failed to create directory \"" << 
-                    directory.string() << "\"\n";
+            if(!fs::exists(directory))
+            {
+                if(fs::create_directories(directory))
+                    std::cout << fcolor::BrightYellow << "\"" << directory.string() 
+                        << "\" directory created" << '\n' << fcolor::Reset;
+                else
+                    throw std::runtime_error("Failed to create directory \"" + 
+                        directory.string() + "\"");
+            }
         }
         catch(const std::exception& e)
         {
-            std::cout << "Failed to create directory \"" << 
-                directory.string() << "\": " << e.what() << '\n';
+            std::cout << bcolor::BrightRed << fcolor::Yellow << "[ERROR]: " << 
+                bcolor::Reset << fcolor::Red << e.what() << '\n' << fcolor::Reset;
         }
     }
 }
@@ -125,7 +130,8 @@ void AssetParserManager::ParseFiles(const std::vector<std::filesystem::path>& fi
         }
         catch(const std::exception& e)
         {
-            std::cout << "Error parsing file: " << e.what() << '\n';
+            std::cout << bcolor::BrightRed << fcolor::Yellow << "[ERROR]: " << 
+                bcolor::Reset << fcolor::Red << e.what() << '\n' << fcolor::Reset;
         }
     }
 }
@@ -156,15 +162,18 @@ void AssetParserManager::ParseFile(const fs::path& inputPath) const
             if(inputTime > outputTime)
             {
                 parser->ParseFile(*this, inputPath.string(), outputPath.string());
-                std::cout << "File \"" << inputFile << "\" parsed succesfully\n";
+                std::cout << fcolor::BrightGreen << "\"" << inputFile 
+                    << "\" parsed succesfully\n" << fcolor::Reset;
             }
             else
-                std::cout << "Skipping \"" << inputFile << "\"\n";
+                std::cout << fcolor::Green << "Skipping \"" << inputFile 
+                    << "\"\n" << fcolor::Reset;
         }
         else
         {
             parser->ParseFile(*this, inputFile, outputFile);
-            std::cout << "File \"" << inputFile << "\" parsed succesfully.\n";
+            std::cout << fcolor::BrightGreen << "\"" << inputFile 
+                    << "\" parsed succesfully\n" << fcolor::Reset;
         }
     }
     else
