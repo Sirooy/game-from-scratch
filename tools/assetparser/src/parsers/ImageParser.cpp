@@ -3,12 +3,14 @@
 #include <fstream>
 #include <stdexcept>
 #include "../BinaryWrite.hpp"
+#include "../AssetParserManager.hpp"
 #include "../thirdparty/stb_image/stb_image.h"
 
 namespace parser
 {
 
-void ImageParser::ParseFile(const std::string& inputFile, 
+void ImageParser::ParseFile(const AssetParserManager& apm, 
+    const std::string& inputFile, 
     const std::string& outputFile)
 {
     int32_t width            { 0 };
@@ -35,9 +37,10 @@ void ImageParser::ParseFile(const std::string& inputFile,
     ImageFormat outputFormat  = inputFormat; //TODO: Read input format from config file
     int32_t outputNumChannels = GetNumChannelsFromFormat(outputFormat);
     
-    WriteBytes(os, static_cast<uint16_t>(width));
-    WriteBytes(os, static_cast<uint16_t>(height));
-    WriteBytes(os, static_cast<uint8_t>(outputNumChannels)); //TODO: Write the format instead of the number of channels
+    std::endian endianess = apm.Config().endianness;
+    WriteBytes(os, static_cast<uint16_t>(width), endianess);
+    WriteBytes(os, static_cast<uint16_t>(height), endianess);
+    WriteBytes(os, static_cast<uint8_t>(outputNumChannels), endianess); //TODO: Write the format instead of the number of channels
 
     if(inputFormat == outputFormat)
     {

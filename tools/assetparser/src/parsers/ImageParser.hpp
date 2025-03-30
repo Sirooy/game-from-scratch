@@ -44,7 +44,8 @@ enum class ImageFormat : uint8_t
 class ImageParser : public BaseParser
 {
 public:
-    void ParseFile(const std::string& inputFile, const std::string& outputFile) override;
+    void ParseFile(const AssetParserManager& apm, const std::string& inputFile, 
+        const std::string& outputFile) override;
 
     const std::vector<std::string>& GetInputExtensions() const override 
     { 
