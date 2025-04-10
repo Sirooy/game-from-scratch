@@ -19,6 +19,9 @@ int main(int argc, char* argv[])
         }
         else if(args.HasOption("-d") && args.GetOptionValueCount("-d") == 1)
         {
+            if(args.HasOption("-o") && args.GetOptionValueCount("-o") == 1)
+                apm.SetOutputDirectory(args.GetOptionValue("-o"));
+            
             apm.ParseDirectory(args.GetOptionValue("-d"));
         }
         else

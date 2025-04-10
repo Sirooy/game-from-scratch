@@ -76,7 +76,7 @@ add_custom_target(
 
 add_custom_command(
     TARGET parse_assets_target POST_BUILD
-    COMMAND assetparser ARGS -d ${CMAKE_CURRENT_SOURCE_DIR}/game/assets
+    COMMAND assetparser ARGS -d ${CMAKE_CURRENT_SOURCE_DIR}/game/assets -o ${CMAKE_CURRENT_BINARY_DIR}/game/assets
     COMMENT "Parsing game assets..."
 )
 

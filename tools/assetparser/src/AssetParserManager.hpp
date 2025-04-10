@@ -29,6 +29,7 @@ public:
 
     void ParseSingleFile(std::filesystem::path path) const;
     void ParseDirectory(std::filesystem::path rootDirectory);
+    void SetOutputDirectory(std::filesystem::path outputDir);
 
     template<typename T, typename... TParams> requires std::is_base_of_v<parser::BaseParser, T>
     void RegisterParser(TParams&&... params)

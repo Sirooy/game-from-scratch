@@ -50,6 +50,13 @@ void AssetParserManager::ParseDirectory(fs::path rootDirectory)
     ParseFiles(files);
 }
 
+void AssetParserManager::SetOutputDirectory(fs::path outputDir)
+{
+    outputDir.make_preferred();
+    
+    config.outputDir = std::move(outputDir);
+}
+
 AssetParserManager::FilesAndDirectories AssetParserManager::GetFilesAndDirectories(
     const std::filesystem::path& rootDirectory, 
     const std::filesystem::path& configPath)
@@ -197,6 +204,9 @@ void AssetParserManager::ParseConfigFile(const fs::path& path)
 
 void AssetParserManager::ParseConfigOutputPath(const json& data)
 {
+    if(!config.outputDir.empty())
+        return;
+    
     if(data.contains(CONFIG_OUTPUT_DIR_KEY))
     {
         auto& outputPath = data[CONFIG_OUTPUT_DIR_KEY];
