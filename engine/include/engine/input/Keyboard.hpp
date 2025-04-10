@@ -111,8 +111,8 @@ public:
 
     static void Init(GLFWwindow* window)
     {
-        glfwSetKeyCallback(window, [](GLFWwindow* glfwWindow, int32_t key, 
-            int32_t scancode, int32_t action, int32_t mods)
+        glfwSetKeyCallback(window, [](GLFWwindow* /*glfwWindow*/, int32_t key, 
+            int32_t /*scancode*/, int32_t action, int32_t /*mods*/)
         {
             if(key != GLFW_KEY_UNKNOWN)
             {

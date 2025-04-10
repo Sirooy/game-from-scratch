@@ -19,7 +19,7 @@ public:
 
     const std::string& GetOptionValue(const std::string& option, std::size_t index = 0) const;
     const std::vector<std::string>& GetOptionValues(const std::string& option) const;
-    const std::size_t GetOptionValueCount(const std::string& option) const;
+    std::size_t GetOptionValueCount(const std::string& option) const;
 
     bool HasOption(const std::string& option) const { return tokens.contains(option); }
     TokenMap::iterator Begin()             { return tokens.begin(); }

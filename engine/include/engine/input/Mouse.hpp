@@ -34,19 +34,19 @@ public:
     {
         m_GlfwWindow = window;
 
-        glfwSetMouseButtonCallback(window, [](GLFWwindow* glfwWindow, int button, int action, int mods)
+        glfwSetMouseButtonCallback(window, [](GLFWwindow* /*glfwWindow*/, int button, int action, int /*mods*/)
         {
             m_ButtonStates[button] = static_cast<bool>(action);
         });
 
-        glfwSetCursorPosCallback(window, [](GLFWwindow* glfwWindow, double xPos, double yPos)
+        glfwSetCursorPosCallback(window, [](GLFWwindow* /*glfwWindow*/, double xPos, double yPos)
         {
             m_Position = math::Vec2(
                 static_cast<float>(xPos),
                 static_cast<float>(yPos));
         });
 
-        glfwSetScrollCallback(window, [](GLFWwindow* glfwWindow, double xOffset, double yOffset)
+        glfwSetScrollCallback(window, [](GLFWwindow* /*glfwWindow*/, double xOffset, double yOffset)
         {
             m_Scroll += math::Vec2(
                 static_cast<float>(xOffset),

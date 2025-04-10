@@ -30,7 +30,7 @@ const std::vector<std::string>& ArgumentParser::GetOptionValues(const std::strin
     throw std::runtime_error("Could not get option values of \"" + option + "\"");
 }
 
-const std::size_t ArgumentParser::GetOptionValueCount(const std::string& option) const
+std::size_t ArgumentParser::GetOptionValueCount(const std::string& option) const
 {
     auto find = tokens.find(option);
 
