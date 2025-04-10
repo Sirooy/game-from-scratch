@@ -1,4 +1,5 @@
 obj
 build
+dependencies
 *.exe
 .vscode

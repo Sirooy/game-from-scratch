@@ -6,5 +6,4 @@ file(GLOB_RECURSE game_sources CONFIGURE_DEPENDS
 
 add_executable(game ${game_sources})
 
-target_link_options(game PRIVATE -static)
 target_link_libraries(game PUBLIC engine)

@@ -1,6 +1,6 @@
 #pragma once
 #include <cstring>
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 #include "../math/vector/vector2.hpp"
 
 namespace input

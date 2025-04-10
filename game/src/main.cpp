@@ -7,7 +7,7 @@
 #include <engine/math/matrix/Matrix4.hpp>
 #include <engine/math/quat/Quaternion.hpp>
 #include <engine/input/Input.hpp>
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 #include <numbers>
 
 template<typename T>

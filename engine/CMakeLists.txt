@@ -8,7 +8,6 @@ add_library(engine STATIC ${engine_sources})
 
 target_compile_definitions(engine PRIVATE -DGLFW_INCLUDE_NONE)
 
-target_link_options(engine PRIVATE -static)
 target_link_libraries(engine PUBLIC Vulkan::Vulkan)
 target_link_libraries(engine PUBLIC glfw)
 
