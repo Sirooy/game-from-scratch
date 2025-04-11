@@ -66,17 +66,3 @@ FetchContent_MakeAvailable(nlohmann_json)
 add_subdirectory(engine)
 add_subdirectory(tools/assetparser)
 add_subdirectory(game)
-
-#Parse assets
-#Create a custom target to ensure that the asset parser gets executed every time the project is built
-add_custom_target(
-    parse_assets_target ALL
-    DEPENDS game assetparser parse_assets_target 
-)
-
-add_custom_command(
-    TARGET parse_assets_target POST_BUILD
-    COMMAND assetparser ARGS -d ${CMAKE_CURRENT_SOURCE_DIR}/game/assets -o ${CMAKE_CURRENT_BINARY_DIR}/game/assets
-    COMMENT "Parsing game assets..."
-)
-
