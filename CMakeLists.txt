@@ -20,7 +20,7 @@ set(FETCHCONTENT_BASE_DIR ${CMAKE_SOURCE_DIR}/dependencies/)
 set(FETCHCONTENT_TRY_FIND_PACKAGE_MODE ALWAYS)
 
 # Vulkan - Must be installed in the system
-find_package(Vulkan REQUIRED)
+find_package(Vulkan REQUIRED COMPONENTS shaderc_combined glslang SPIRV-Tools)
 
 # GLFW
 FetchContent_Declare(
@@ -48,6 +48,7 @@ set(ASSIMP_BUILD_ALL_EXPORTERS_BY_DEFAULT OFF CACHE BOOL "" FORCE)
 set(ASSIMP_INSTALL_PDB OFF CACHE BOOL "" FORCE)
 set(ASSIMP_BUILD_ASSIMP_VIEW OFF CACHE BOOL "" FORCE)
 set(ASSIMP_INSTALL OFF CACHE BOOL "" FORCE)
+set(ASSIMP_WARNINGS_AS_ERRORS OFF CACHE BOOL "" FORCE) 
 FetchContent_MakeAvailable(assimp)
 
 # Nlohmann json

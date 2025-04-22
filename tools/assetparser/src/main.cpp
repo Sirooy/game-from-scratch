@@ -3,6 +3,7 @@
 #include "ArgumentParser.hpp"
 #include "AssetParserManager.hpp"
 #include "./parsers/ImageParser.hpp"
+#include "./parsers/ShaderParser.hpp"
 
 
 int main(int argc, char* argv[])
@@ -10,7 +11,8 @@ int main(int argc, char* argv[])
     ArgumentParser args(argc, argv);
     AssetParserManager apm;
     apm.RegisterParser<parser::ImageParser>();
-    
+    apm.RegisterParser<parser::ShaderParser>();
+
     try
     {
         if(args.HasOption("-f") && args.GetOptionValueCount("-f") == 1)

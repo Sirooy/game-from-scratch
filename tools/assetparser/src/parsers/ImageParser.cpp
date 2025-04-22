@@ -11,6 +11,7 @@ namespace parser
 
 void ImageParser::ParseFile(const AssetParserManager& apm, 
     const std::string& inputFile, 
+    [[maybe_unused]] const std::string& inputExtension,
     const std::string& outputFile)
 {
     int32_t width            { 0 };

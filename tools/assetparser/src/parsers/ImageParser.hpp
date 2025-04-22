@@ -45,7 +45,7 @@ class ImageParser : public BaseParser
 {
 public:
     void ParseFile(const AssetParserManager& apm, const std::string& inputFile, 
-        const std::string& outputFile) override;
+        const std::string& inputExtension, const std::string& outputFile) override;
 
     const std::vector<std::string>& GetInputExtensions() const override 
     { 
@@ -68,12 +68,14 @@ protected:
 protected:
     inline static const std::vector<std::string> m_InputExtensions { "png", "jpg", "jpeg", "bmp", "gif", "tga", "psd" };
     inline static constexpr std::string m_OutputExtension          { "img" };
+
     //Default values to assign when converting from a format with less channels than the output format (Ex. R -> RGBA)
     inline static constexpr int32_t DefaultChannelValues[static_cast<int32_t>(ChannelIndex::NumChannels)]
     {
       //R  G  B  A
         0, 0, 0, std::numeric_limits<uint8_t>::max()
     };
+
     //Table indicating the position that a certain channel index occupies in a specific format
     //(Ex. In the format ARGB, The channel index R(= 0) maps to the position/index 1 in the format)
     //This table is used for conversions between image formats

@@ -168,7 +168,7 @@ void AssetParserManager::ParseFile(const fs::path& inputPath) const
             
             if(inputTime > outputTime)
             {
-                parser->ParseFile(*this, inputPath.string(), outputPath.string());
+                parser->ParseFile(*this, inputPath.string(), extension, outputPath.string());
                 std::cout << fcolor::BrightGreen << "\"" << inputFile 
                     << "\" parsed succesfully\n" << fcolor::Reset;
             }
@@ -178,7 +178,7 @@ void AssetParserManager::ParseFile(const fs::path& inputPath) const
         }
         else
         {
-            parser->ParseFile(*this, inputFile, outputFile);
+            parser->ParseFile(*this, inputFile, extension, outputFile);
             std::cout << fcolor::BrightGreen << "\"" << inputFile 
                     << "\" parsed succesfully\n" << fcolor::Reset;
         }
