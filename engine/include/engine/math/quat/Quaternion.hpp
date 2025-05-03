@@ -2,10 +2,12 @@
 #include <cstdint>
 #include <cstddef>
 #include "../vector/Vector3.hpp"
-#include "../matrix/Matrix4.hpp"
 
 namespace math
 {
+
+template<typename T>
+struct Matrix4;
 
 template<typename T>
 struct Quaternion

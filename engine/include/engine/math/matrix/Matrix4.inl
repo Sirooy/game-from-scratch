@@ -1,4 +1,7 @@
 #include <cmath>
+#include "../vector/Vector3.hpp"
+#include "../vector/Vector4.hpp"
+#include "../quat/quaternion.hpp"
 
 namespace math
 {
@@ -584,14 +587,33 @@ constexpr Matrix4<T> Matrix4<T>::CreateTranslation(const Vector3<T>& translation
     );
 }
 
-/*
 template<typename T>
 constexpr Matrix4<T> Matrix4<T>::CreateTransform(const Vector3<T>& scale, 
     const Quaternion<T>& rotation, const Vector3<T>& translation)
 {
-    throw "Unimplemented method Matrix4::CreateTransform";
-    return Matrix4();
+    Matrix4<T> m = rotation.ToMatrix4();
+
+    m.arr[12] = translation.x;
+    m.arr[13] = translation.y;
+    m.arr[14] = translation.z;
+
+    m.arr[0]  *= scale.x;
+    m.arr[4]  *= scale.y;
+    m.arr[8]  *= scale.z;
+
+    m.arr[1]  *= scale.x;
+    m.arr[5]  *= scale.y;
+    m.arr[9]  *= scale.z; 
+
+    m.arr[2]  *= scale.x;
+    m.arr[6]  *= scale.y;
+    m.arr[10] *= scale.z; 
+
+    m.arr[3]  *= scale.x;
+    m.arr[7]  *= scale.y;
+    m.arr[11] *= scale.z;
+
+    return m;
 }
-*/
 
 } //namespace math

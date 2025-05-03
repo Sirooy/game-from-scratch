@@ -3,10 +3,12 @@
 #include <cstddef>
 #include "../vector/Vector3.hpp"
 #include "../vector/Vector4.hpp"
-//#include "../quat/quaternion.hpp"
 
 namespace math
 {
+
+template<typename T>
+struct Quaternion;
 
 //Column based 4x4 matrix
 template<typename T>
@@ -56,8 +58,8 @@ public:
     constexpr static Matrix4 CreateRotationY(T radians);
     constexpr static Matrix4 CreateRotationZ(T radians);
     constexpr static Matrix4 CreateTranslation(const Vector3<T>& v);
-    //constexpr static Matrix4 CreateTransform(const Vector3<T>& scale, 
-    //    const Quaternion<T>& rotation, const Vector3<T>& translation);
+    constexpr static Matrix4 CreateTransform(const Vector3<T>& scale, 
+        const Quaternion<T>& rotation, const Vector3<T>& translation);
 
 public:
     T arr[Size];
