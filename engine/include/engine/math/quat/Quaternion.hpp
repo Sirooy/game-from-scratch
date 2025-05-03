@@ -30,7 +30,6 @@ public:
     constexpr Quaternion& operator*=(const T value);
     constexpr Quaternion  operator*(const Quaternion& other) const;
     constexpr Quaternion& operator*=(const Quaternion& other);
-    constexpr Vector3<T>  operator*(const Vector3<T>& v) const;
     constexpr Quaternion  operator/(const T value) const;
     constexpr Quaternion& operator/=(const T value);
     constexpr bool        operator==(const Quaternion& other) const;

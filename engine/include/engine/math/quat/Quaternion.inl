@@ -125,37 +125,6 @@ constexpr Quaternion<T>& Quaternion<T>::operator*=(const Quaternion<T>& other)
 }
 
 template<typename T>
-constexpr Vector3<T> Quaternion<T>::operator*(const Vector3<T>& v) const
-{
-    T dot1            = x * v.x + y * v.y + z * v.z;
-    Vector3<T> cross1 = Vector3( 
-        y * v.z - z * v.y, 
-        z * v.x - x * v.z,
-        x * v.y - y * v.x 
-    );
-
-    Quaternion<T> q = Quaternion(
-        w * v.x + cross1.x,
-        w * v.y + cross1.y,
-        w * v.z + cross1.z,
-        -dot1
-    );
-    Quaternion<T> conj = GetConjugated();
-
-    Vector3<T> cross2 = Vector3( 
-        q.y * conj.z - q.z * conj.y, 
-        q.z * conj.x - q.x * conj.z,
-        q.x * conj.y - q.y * conj.x 
-    );
-    
-    return Vector3<T>(
-        q.w * conj.x + conj.w * q.x + cross2.x,
-        q.w * conj.y + conj.w * q.y + cross2.y,
-        q.w * conj.z + conj.w * q.z + cross2.z
-    );
-}
-
-template<typename T>
 constexpr Quaternion<T> Quaternion<T>::operator/(const T value) const
 {
     return Quaternion(x / value, y / value, z / value, w / value);
