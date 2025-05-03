@@ -239,33 +239,37 @@ constexpr Matrix4<T>& Matrix4<T>::operator*=(const Matrix4<T>& other)
 template<typename T>
 constexpr Matrix4<T> Matrix4<T>::operator/(const T value) const
 {
+    T invValue = 1 / value;
+
     return Matrix4(
-        arr[0]  / value, arr[1]  / value, arr[2]  / value, arr[3]  / value,
-        arr[4]  / value, arr[5]  / value, arr[6]  / value, arr[7]  / value,
-        arr[8]  / value, arr[9]  / value, arr[10] / value, arr[11] / value,
-        arr[12] / value, arr[13] / value, arr[14] / value, arr[15] / value
+        arr[0]  * invValue, arr[1]  * invValue, arr[2]  * invValue, arr[3]  * invValue,
+        arr[4]  * invValue, arr[5]  * invValue, arr[6]  * invValue, arr[7]  * invValue,
+        arr[8]  * invValue, arr[9]  * invValue, arr[10] * invValue, arr[11] * invValue,
+        arr[12] * invValue, arr[13] * invValue, arr[14] * invValue, arr[15] * invValue
     );
 }
 
 template<typename T>
 constexpr Matrix4<T>& Matrix4<T>::operator/=(const T value)
 {
-    arr[0]  /= value;
-    arr[1]  /= value;
-    arr[2]  /= value;
-    arr[3]  /= value;
-    arr[4]  /= value;
-    arr[5]  /= value;
-    arr[6]  /= value;
-    arr[7]  /= value;
-    arr[8]  /= value;
-    arr[9]  /= value;
-    arr[10] /= value;
-    arr[11] /= value;
-    arr[12] /= value;
-    arr[13] /= value;
-    arr[14] /= value;
-    arr[15] /= value;
+    T invValue = 1 / value;
+
+    arr[0]  *= invValue;
+    arr[1]  *= invValue;
+    arr[2]  *= invValue;
+    arr[3]  *= invValue;
+    arr[4]  *= invValue;
+    arr[5]  *= invValue;
+    arr[6]  *= invValue;
+    arr[7]  *= invValue;
+    arr[8]  *= invValue;
+    arr[9]  *= invValue;
+    arr[10] *= invValue;
+    arr[11] *= invValue;
+    arr[12] *= invValue;
+    arr[13] *= invValue;
+    arr[14] *= invValue;
+    arr[15] *= invValue;
 
     return *this;
 }

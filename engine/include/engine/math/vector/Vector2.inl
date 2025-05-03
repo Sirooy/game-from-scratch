@@ -99,14 +99,18 @@ constexpr Vector2<T>& Vector2<T>::operator*=(const Vector2<T> other)
 template<typename T>
 constexpr Vector2<T> Vector2<T>::operator/(const T value) const
 {
-    return Vector2(x / value, y / value);
+    T invValue = 1 / value;
+
+    return Vector2(x * invValue, y * invValue);
 }
 
 template<typename T>
 constexpr Vector2<T>& Vector2<T>::operator/=(const T value)
 {
-    x /= value;
-    y /= value;
+    T invValue = 1 / value;
+
+    x *= invValue;
+    y *= invValue;
 
     return *this;
 }
@@ -168,9 +172,9 @@ constexpr T Vector2<T>::Cross2D(const Vector2 other) const
 template<typename T>
 constexpr Vector2<T> Vector2<T>::GetNormalized() const
 {
-    T l = std::sqrt(x * x + y * y);
+    T invL = 1 / std::sqrt(x * x + y * y);
 
-    return Vector2(x / l, y / l);
+    return Vector2(x * invL, y * invL);
 }
 
 template<typename T>
@@ -179,7 +183,10 @@ constexpr Vector2<T> Vector2<T>::GetSafeNormalized() const
     T l = std::sqrt(x * x + y * y);
 
     if(l != 0)
-        return Vector2(x / l, y / l);
+    {
+        T invL = 1 / l;
+        return Vector2(x * invL, y * invL);
+    }
 
     return Vector2(x, y);
 }

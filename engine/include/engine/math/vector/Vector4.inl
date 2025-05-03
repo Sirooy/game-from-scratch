@@ -111,16 +111,20 @@ constexpr Vector4<T>& Vector4<T>::operator*=(const Vector4<T>& other)
 template<typename T>
 constexpr Vector4<T> Vector4<T>::operator/(const T value) const
 {
-    return Vector4(x / value, y / value, z / value, w / value);
+    T invValue = 1 / value;
+
+    return Vector4(x * invValue, y * invValue, z * invValue, w * invValue);
 }
 
 template<typename T>
 constexpr Vector4<T>& Vector4<T>::operator/=(const T value)
 {
-    x /= value;
-    y /= value;
-    z /= value;
-    w /= value;
+    T invValue = 1 / value;
+
+    x *= invValue;
+    y *= invValue;
+    z *= invValue;
+    w *= invValue;
 
     return *this;
 }
@@ -182,9 +186,9 @@ constexpr T Vector4<T>::LengthSquared() const
 template<typename T>
 constexpr Vector4<T> Vector4<T>::GetNormalized() const
 {
-    T l = std::sqrt(x * x + y * y + z * z + w * w);
+    T invL = 1 / std::sqrt(x * x + y * y + z * z + w * w);
 
-    return Vector4(x / l, y / l, z / l, w / l);
+    return Vector4(x * invL, y * invL, z * invL, w * invL);
 }
 
 template<typename T>
@@ -193,7 +197,10 @@ constexpr Vector4<T> Vector4<T>::GetSafeNormalized() const
     T l = std::sqrt(x * x + y * y + z * z + w * w);
 
     if(l != 0)
-        return Vector4(x / l, y / l, z / l, w / l);
+    {
+        T invL = 1 / l;
+        return Vector4(x * invL, y * invL, z * invL, w * invL);
+    }
 
     return Vector4(x, y, z, w);
 }

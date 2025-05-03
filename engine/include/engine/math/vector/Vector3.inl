@@ -105,15 +105,19 @@ constexpr Vector3<T>& Vector3<T>::operator*=(const Vector3<T>& other)
 template<typename T>
 constexpr Vector3<T> Vector3<T>::operator/(const T value) const
 {
-    return Vector3(x / value, y / value, z / value);
+    T invValue = 1 / value;
+
+    return Vector3(x * invValue, y * invValue, z * invValue);
 }
 
 template<typename T>
 constexpr Vector3<T>& Vector3<T>::operator/=(const T value)
 {
-    x /= value;
-    y /= value;
-    z /= value;
+    T invValue = 1 / value;
+
+    x *= invValue;
+    y *= invValue;
+    z *= invValue;
 
     return *this;
 }
@@ -180,9 +184,9 @@ constexpr Vector3<T> Vector3<T>::Cross(const Vector3& other) const
 template<typename T>
 constexpr Vector3<T> Vector3<T>::GetNormalized() const
 {
-    T l = std::sqrt(x * x + y * y + z * z);
+    T invL = 1 / std::sqrt(x * x + y * y + z * z);
 
-    return Vector3(x / l, y / l, z / l);
+    return Vector3(x / invL, y / invL, z / invL);
 }
 
 template<typename T>
@@ -191,7 +195,10 @@ constexpr Vector3<T> Vector3<T>::GetSafeNormalized() const
     T l = std::sqrt(x * x + y * y + z * z);
 
     if(l != 0)
-        return Vector3(x / l, y / l, z / l);
+    {
+        T invL = 1 / l;
+        return Vector3(x * invL, y * invL, z * invL);
+    }
 
     return Vector3(x, y, z);
 }

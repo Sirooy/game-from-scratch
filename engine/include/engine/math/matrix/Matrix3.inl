@@ -171,25 +171,29 @@ constexpr Matrix3<T>& Matrix3<T>::operator*=(const Matrix3<T>& other)
 template<typename T>
 constexpr Matrix3<T> Matrix3<T>::operator/(const T value) const
 {
+    T invValue = 1 / value;
+
     return Matrix3(
-        arr[0] / value, arr[1] / value, arr[2] / value, 
-        arr[3] / value, arr[4] / value, arr[5] / value,
-        arr[6] / value, arr[7] / value, arr[8] / value
+        arr[0] * invValue, arr[1] * invValue, arr[2] * invValue, 
+        arr[3] * invValue, arr[4] * invValue, arr[5] * invValue,
+        arr[6] * invValue, arr[7] * invValue, arr[8] * invValue
     );
 }
 
 template<typename T>
 constexpr Matrix3<T>& Matrix3<T>::operator/=(const T value)
 {
-    arr[0] /= value;
-    arr[1] /= value;
-    arr[2] /= value;
-    arr[3] /= value;
-    arr[4] /= value;
-    arr[5] /= value;
-    arr[6] /= value;
-    arr[7] /= value;
-    arr[8] /= value;
+    T invValue = 1 / value;
+
+    arr[0] *= invValue;
+    arr[1] *= invValue;
+    arr[2] *= invValue;
+    arr[3] *= invValue;
+    arr[4] *= invValue;
+    arr[5] *= invValue;
+    arr[6] *= invValue;
+    arr[7] *= invValue;
+    arr[8] *= invValue;
 
     return *this;
 }

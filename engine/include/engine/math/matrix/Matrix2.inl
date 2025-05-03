@@ -127,19 +127,23 @@ constexpr Matrix2<T>& Matrix2<T>::operator*=(const Matrix2<T>& other)
 template<typename T>
 constexpr Matrix2<T> Matrix2<T>::operator/(const T value) const
 {
+    T invValue = 1 / value;
+
     return Matrix2(
-        arr[0] / value, arr[1] / value, 
-        arr[2] / value, arr[3] / value
+        arr[0] * invValue, arr[1] * invValue, 
+        arr[2] * invValue, arr[3] * invValue
     );
 }
 
 template<typename T>
 constexpr Matrix2<T>& Matrix2<T>::operator/=(const T value)
 {
-    arr[0] /= value;
-    arr[1] /= value;
-    arr[2] /= value;
-    arr[3] /= value;
+    T invValue = 1 / value;
+    
+    arr[0] *= invValue;
+    arr[1] *= invValue;
+    arr[2] *= invValue;
+    arr[3] *= invValue;
 
     return *this;
 }

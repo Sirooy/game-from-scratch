@@ -128,16 +128,20 @@ constexpr Quaternion<T>& Quaternion<T>::operator*=(const Quaternion<T>& other)
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::operator/(const T value) const
 {
-    return Quaternion(x / value, y / value, z / value, w / value);
+    T invValue = 1 / value;
+
+    return Quaternion(x * invValue, y * invValue, z * invValue, w * invValue);
 }
 
 template<typename T>
 constexpr Quaternion<T>& Quaternion<T>::operator/=(const T value)
 {
-    x /= value;
-    y /= value;
-    z /= value;
-    w /= value;
+    T invValue = 1 / value;
+
+    x *= invValue;
+    y *= invValue;
+    z *= invValue;
+    w *= invValue;
 
     return *this;
 }
@@ -182,9 +186,9 @@ constexpr T Quaternion<T>::LengthSquared() const
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::GetNormalized() const
 {
-    T l = std::sqrt(x * x + y * y + z * z + w * w);
+    T invL = 1 / std::sqrt(x * x + y * y + z * z + w * w);
 
-    return Quaternion(x / l, y / l, z / l, w / l);
+    return Quaternion(x * invL, y * invL, z * invL, w * invL);
 }
 
 template<typename T>
@@ -193,7 +197,10 @@ constexpr Quaternion<T> Quaternion<T>::GetSafeNormalized() const
     T l = std::sqrt(x * x + y * y + z * z + w * w);
 
     if(l != 0)
-        return Quaternion(x / l, y / l, z / l, w / l);
+    {
+        T invL = 1 / l;
+        return Quaternion(x * invL, y * invL, z * invL, w * invL);
+    }
 
     return Quaternion(x, y, z, w);
 }
@@ -207,8 +214,9 @@ constexpr Quaternion<T> Quaternion<T>::GetConjugated() const
 template<typename T>
 constexpr Quaternion<T> Quaternion<T>::GetInverse() const
 {
-    T ls = x * x + y * y + z * z + w * w;
-    return Quaternion(-x / ls, -y / ls, -z / ls, w / ls); 
+    T invLs = 1 / (x * x + y * y + z * z + w * w);
+
+    return Quaternion(-x * invLs, -y * invLs, -z * invLs, w * invLs); 
 }
 
 template<typename T>
