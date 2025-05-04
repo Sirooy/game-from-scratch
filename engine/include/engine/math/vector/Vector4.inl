@@ -58,6 +58,12 @@ constexpr Vector4<T>& Vector4<T>::operator+=(const Vector4<T>& other)
 }
 
 template<typename T>
+constexpr Vector4<T> Vector4<T>::operator-() const
+{
+    return Vector4(-x, -y, -z, -w);
+}
+
+template<typename T>
 constexpr Vector4<T> Vector4<T>::operator-(const Vector4<T>& other) const
 {
     return Vector4(x - other.x, y - other.y, z - other.z, w - other.w);

@@ -592,6 +592,43 @@ constexpr Matrix4<T> Matrix4<T>::CreateTranslation(const Vector3<T>& translation
 }
 
 template<typename T>
+constexpr Matrix4<T> Matrix4<T>::CreateLookAt(const Vector3<T>& center, 
+    const Vector3<T>& target, const Vector3<T>& up)
+{
+    Vector3<T> front = (center - target).GetNormalized();
+    Vector3<T> right = up.Cross(front).GetNormalized();
+    Vector3<T> newUp = front.Cross(right).GetNormalized();
+    Vector3<T> pos   = -center;
+
+    T px = right.x * pos.x + right.y * pos.y + right.z * pos.z;
+    T py = newUp.x * pos.x + newUp.y * pos.y + newUp.z * pos.z;
+    T pz = front.x * pos.x + front.y * pos.y + front.z * pos.z;
+
+    return Matrix4(
+        right.x, newUp.x, front.x, 0,
+        right.y, newUp.y, front.y, 0,
+        right.z, newUp.z, front.z, 0,
+        px, py, pz, 1
+    );
+}
+
+template<typename T>
+constexpr Matrix4<T> Matrix4<T>::CreatePerspective(T near, T far, T fov, T aspect)
+{
+    T a   = 1 / std::tan(fov * 0.5);
+    T div = 1 / (near - far);
+    T c   = far * div;
+    T d   = (near * far) * div;
+
+    return Matrix4(
+        a / aspect, 0, 0, 0,
+        0, -a, 0, 0,
+        0,  0, c, 1,
+        0,  0, d, 0
+    );
+}
+
+template<typename T>
 constexpr Matrix4<T> Matrix4<T>::CreateTransform(const Vector3<T>& scale, 
     const Quaternion<T>& rotation, const Vector3<T>& translation)
 {

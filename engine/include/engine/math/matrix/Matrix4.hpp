@@ -58,6 +58,8 @@ public:
     constexpr static Matrix4 CreateRotationY(T radians);
     constexpr static Matrix4 CreateRotationZ(T radians);
     constexpr static Matrix4 CreateTranslation(const Vector3<T>& v);
+    constexpr static Matrix4 CreateLookAt(const Vector3<T>& center, const Vector3<T>& target, const Vector3<T>& up);
+    constexpr static Matrix4 CreatePerspective(T near, T far, T fov, T aspect);
     constexpr static Matrix4 CreateTransform(const Vector3<T>& scale, 
         const Quaternion<T>& rotation, const Vector3<T>& translation);
 

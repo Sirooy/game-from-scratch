@@ -23,6 +23,7 @@ public:
     constexpr const T& operator[](std::size_t index) const;
     constexpr Vector3  operator+(const Vector3& other) const;
     constexpr Vector3& operator+=(const Vector3& other);
+    constexpr Vector3  operator-() const;
     constexpr Vector3  operator-(const Vector3& other) const;
     constexpr Vector3& operator-=(const Vector3& other);
     constexpr Vector3  operator*(const T value) const;
