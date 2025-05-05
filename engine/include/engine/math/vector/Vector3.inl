@@ -193,7 +193,7 @@ constexpr Vector3<T> Vector3<T>::GetNormalized() const
 {
     T invL = 1 / std::sqrt(x * x + y * y + z * z);
 
-    return Vector3(x / invL, y / invL, z / invL);
+    return Vector3(x * invL, y * invL, z * invL);
 }
 
 template<typename T>

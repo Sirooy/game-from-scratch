@@ -618,13 +618,13 @@ constexpr Matrix4<T> Matrix4<T>::CreatePerspective(T near, T far, T fov, T aspec
     T a   = 1 / std::tan(fov * 0.5);
     T div = 1 / (near - far);
     T c   = far * div;
-    T d   = (near * far) * div;
+    T d   = (far * near) * div;
 
     return Matrix4(
         a / aspect, 0, 0, 0,
-        0, -a, 0, 0,
-        0,  0, c, 1,
-        0,  0, d, 0
+        0, -a, 0,  0,
+        0,  0, c, -1,
+        0,  0, d,  0
     );
 }
 
